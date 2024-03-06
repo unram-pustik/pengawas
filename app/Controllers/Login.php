@@ -48,7 +48,7 @@ class Login extends BaseController
             }
            
             elseif ($dataUser["role"] == "2") {
-                return redirect()->to(base_url('/staf'));
+                return redirect()->to(base_url('/pengawas'));
             }
             } else {
                 session()->setFlashdata('error', 'Username & Password Salah!!!!');

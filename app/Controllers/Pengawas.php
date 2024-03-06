@@ -7,7 +7,7 @@ use App\Models\PengawasModel;
 use CodeIgniter\Controller;
 use CodeIgniter\Pager\PagerRenderer;
 
-class Staf extends Controller
+class Pengawas extends Controller
 {
     public function index()
     {
@@ -27,24 +27,25 @@ class Staf extends Controller
                             ->orderBy('kode', 'DESC')->findAll();
         $data['pager'] = $staffModel->pager;
 
-        return view('staf_view', $data);
+        return view('v_daftar_pengawas', $data);
     }
 
     public function tambah_pengawas()
     {
-        $request = $this->request;
+        
         $pengawasModel = new PengawasModel();
-
-        $data = [
-            'nama' => $this->request->getPost('nama'),
-            'nip'   => $this->request->getPost('nip'),
-            'ujian' => $this->request->getPost('ujian'),
-            'unit_kerja'    => $this->request->getPost('unit_kerja'),
-        ];
-        var_dump($this->request->getVar());
-       
-        // $pengawasModel->insert($data);
+        $request = $this->request->getVar();
+        foreach ($request['staf'] as $kode) {
+            $data = [
+                'nip'   => $kode,
+                'ujian' => $request['ujian'],
+            ];
+            $pengawasModel->insert($data);
+            
+        }
+        // return view('staf_view', $data);
     }
+    
 
    
 }

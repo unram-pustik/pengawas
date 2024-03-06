@@ -125,3 +125,129 @@ INFO - 2024-03-06 02:30:07 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2024-03-06 02:37:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-03-06 02:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-03-06 02:41:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:00:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:01:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:13:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:19:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:19:17 --> ErrorException: Undefined variable $pengawasModel
+in APPPATH\Controllers\Staf.php on line 41.
+ 1 APPPATH\Controllers\Staf.php(41): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pengawasModel', 'C:\\laragon\\www\\pengawas\\app\\Controllers\\Staf.php', 41)
+ 2 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-06 03:20:09 --> ErrorException: Undefined property: App\Controllers\Staf::$pengawasModel
+in APPPATH\Controllers\Staf.php on line 42.
+ 1 APPPATH\Controllers\Staf.php(42): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Staf::$pengawasModel', 'C:\\laragon\\www\\pengawas\\app\\Controllers\\Staf.php', 42)
+ 2 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:23:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:23:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:23:33 --> ErrorException: Undefined variable $staf
+in APPPATH\Views\staf_view.php on line 78.
+ 1 APPPATH\Views\staf_view.php(78): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $staf', 'C:\\laragon\\www\\pengawas\\app\\Views\\staf_view.php', 78)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\staf_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('staf_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('staf_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:23:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:23:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:23:55 --> ErrorException: Undefined variable $staf
+in APPPATH\Views\staf_view.php on line 78.
+ 1 APPPATH\Views\staf_view.php(78): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $staf', 'C:\\laragon\\www\\pengawas\\app\\Views\\staf_view.php', 78)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\staf_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('staf_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('staf_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:23:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:24:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:24:05 --> ErrorException: Undefined variable $staf
+in APPPATH\Views\staf_view.php on line 78.
+ 1 APPPATH\Views\staf_view.php(78): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $staf', 'C:\\laragon\\www\\pengawas\\app\\Views\\staf_view.php', 78)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\staf_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('staf_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('staf_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:24:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 03:46:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:47:01 --> ErrorException: Undefined variable $staf
+in APPPATH\Views\user_view.php on line 84.
+ 1 APPPATH\Views\user_view.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $staf', 'C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php', 84)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('user_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('user_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-06 03:48:07 --> ErrorException: Undefined variable $kode
+in APPPATH\Views\user_view.php on line 84.
+ 1 APPPATH\Views\user_view.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $kode', 'C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php', 84)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('user_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('user_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-06 03:48:43 --> ErrorException: Undefined variable $kode
+in APPPATH\Views\user_view.php on line 84.
+ 1 APPPATH\Views\user_view.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $kode', 'C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php', 84)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('user_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('user_view')
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:48:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:48:53 --> ErrorException: Undefined variable $kode
+in APPPATH\Views\user_view.php on line 84.
+ 1 APPPATH\Views\user_view.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $kode', 'C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php', 84)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('user_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('user_view')
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:52:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-03-06 03:52:52 --> ErrorException: Undefined variable $kode
+in APPPATH\Views\user_view.php on line 84.
+ 1 APPPATH\Views\user_view.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $kode', 'C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php', 84)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\pengawas\\app\\Views\\user_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('user_view', [], true)
+ 5 APPPATH\Controllers\Staf.php(46): view('user_view')
+ 6 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Staf->tambah_pengawas()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Staf))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-03-06 03:54:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:00:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:00:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:00:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:01:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:02:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:03:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:04:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-03-06 04:05:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

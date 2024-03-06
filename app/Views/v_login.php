@@ -51,19 +51,14 @@
                     </div>
                     <div class="row">
 
-                        <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
 
     <!-- jQuery -->
     <script src="<?= base_url() ?>template/plugins/jquery/jquery.min.js"></script>
@@ -71,11 +66,6 @@
     <script src="<?= base_url() ?>template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url() ?>template/dist/js/adminlte.min.js"></script>
-</body>
-
-</html>
-
-
 </body>
 
 </html>

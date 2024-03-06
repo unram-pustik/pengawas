@@ -37,7 +37,7 @@
 <body>
     <div class="container mt-5">
         <div class="mt-3">
-            <div class="card card-warning">
+            <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">Daftar Pengawas</h3>
                 </div>
@@ -49,7 +49,7 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Daftar Ujian</label>
-                                    <select class="form-control" style="width: 100%;">
+                                    <select class="form-control" name="ujian" style="width: 100%;">
                                         <option selected="selected">Pilih Ujian</option>
                                         <option value="SNBT">SNBT </option>
                                         <option value="Pascasarjana">Pascasarjana</option>
@@ -59,21 +59,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Date range:</label>
 
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="far fa-calendar-alt"></i>
-                                    </span>
+                                    </span> 
                                 </div>
                                 <input type="text" class="form-control float-right" id="reservation">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label class="col-form-label" for="inputSuccess">Tambah Pengawas</label>
-                            <select class="select2bs4" nama="nama[]" multiple="multiple" style="width: 100%;">
+                            <select class="select2bs4" name="staf[]" multiple="multiple" style="width: 100%;">
                                 
                                 <?php foreach ($staf as $row): ?>
                                 <?php if (is_array($row)) { ?>
@@ -88,7 +88,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <button type="submit" value="submit" class="btn btn-primary">Ajukan</button>
+                        <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
                     </form>
                 </div>
             </div>
@@ -170,6 +170,7 @@
     )
     </script>
 </body>
+<div></div>
 <footer>
     <?php echo view('layout/v_footer'); ?>
 </footer>

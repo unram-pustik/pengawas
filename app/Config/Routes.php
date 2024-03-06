@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->post('/login/process', 'Login::process');
 $routes->get('/logout', 'Login::logout');
-$routes->get('/staf', 'Staf::index');
+$routes->get('/pengawas', 'Pengawas::index');
 
 $routes->setAutoRoute(true);
 
