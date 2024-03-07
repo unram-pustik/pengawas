@@ -49,7 +49,7 @@
             </a>
           </li>
           <li class="nav-item">
-          <a href="<?= base_url(); ?>/login">Login</a>
+          <a href="<?= base_url(); ?>login">Login</a>
           </li>
           
         </ul>

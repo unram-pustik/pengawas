@@ -41,9 +41,8 @@
                 <div class="card-header">
                     <h3 class="card-title">Daftar Pengawas</h3>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body">
-                <form method="post" action="<?= base_url(); ?>staf/tambah_pengawas">
+                    <form method="post" action="<?= base_url(); ?>pengawas/tambah_pengawas">
                         <div class="row">
                             <div class="col-sm-12">
                                 <!-- text input -->
@@ -53,7 +52,7 @@
                                         <option selected="selected">Pilih Ujian</option>
                                         <option value="SNBT">SNBT </option>
                                         <option value="Pascasarjana">Pascasarjana</option>
-                                        <option value="Seleksi Mandiri">Seleksi Mandiri</option>
+                                        <option value="Mandiri">Seleksi Mandiri</option>
                                     </select>
                                 </div>
                             </div>
@@ -72,10 +71,12 @@
                             </div>
                         </div> -->
                         <div class="form-group">
-                            <label class="col-form-label" for="inputSuccess">Tambah Pengawas</label>
-                            <select class="select2bs4" name="staf[]" multiple="multiple" style="width: 100%;">
-                                
-                                <?php foreach ($staf as $row): ?>
+                            <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
+                            <select class="select2bs4 select2" id="select_staff" name="staf[]" multiple="multiple"
+                                data-placeholder="Pilih Pengawas" style="width: 100%;">
+
+
+                                <!-- <?php foreach ($staf as $row): ?>
                                 <?php if (is_array($row)) { ?>
                                 <?php if (array_key_exists('kode', $row)) { ?>
                                 <option value="<?php echo $row['kode']; ?>"><?php echo $row['nama']; ?></option>
@@ -85,18 +86,21 @@
                                 <?php } else { ?>
                                 <p>Error: The variable is not an array.</p>
                                 <?php } ?>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </select>
                         </div>
+
                         <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"> -->
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> -->
+
+    <!-- JQuery -->
     <script src="<?= base_url() ?>template/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="<?= base_url() ?>template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -125,50 +129,109 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url() ?>template/dist/js/demo.js"></script>
 
-    <script src="<?= base_url() ?>template/plugins/select2/js/select2.full.min.js"></script>
     <!-- Page specific script -->
     <script>
-    //Date range picker
-    $('#reservation').daterangepicker()
-
     $(document).ready(function() {
-        $('#staf-list').DataTable();
-    });
-    $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'MM/DD/YYYY hh:mm A'
-        }
-    })
-    $('.select2').select2()
+        //Date range picker
+        $('#reservation').daterangepicker()
 
-    //Initialize Select2 Elements
+        $('#staf-list').DataTable();
+
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
+
+        //Date range as a button
+        $('#daterange-btn').daterangepicker({
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                        'month').endOf(
+                        'month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                    'MMMM D, YYYY'))
+            }
+        )
+    });
+
     $('.select2bs4').select2({
         theme: 'bootstrap4'
     })
-    $(document).ready(function() {
-        $('.js-example-basic-multiple').select2();
-    });
-    //Date range as a button
-    $('#daterange-btn').daterangepicker({
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-                    'month')]
-            },
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment()
+
+    $('#select_staff').select2({
+        placeholder: 'Pilih Pengawas',
+        width: "100%",
+        escapeMarkup: function(markup) {
+            return markup;
         },
-        function(start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-        }
-    )
+        minimumInputLength: 2,
+        templateResult: function(item) {
+            if (item.loading)
+                return item.text;
+
+            id = JSON.parse(item.id);
+            return '<strong>' + item.text + '</strong><br/>' +
+                '<small>' + id["id"] + '</small> <br/>' +
+                '<small><b>(' + item.nama_PS + ')<b/></small>';
+        },
+        // templateSelection: function(item) {
+        //     // Add a numbering to the selected item
+        //     var indexed = $('#select_staff').val().indexOf(item.id);
+        //     var selectedNumber = indexed + 1;
+
+        //     return '<strong>Penguji ' + selectedNumber + '</strong>' + ' | ' + item.text;
+        // },
+        ajax: {
+            url: '<?= base_url() ?>pengawas/get_api',
+            type: 'GET',
+
+            dataType: 'json',
+            // headers: {
+            //     'Authorization': "Basic bXl1bnJhbTp3M3lSZkRuazloSmRKVg",
+            // },
+            data: function(params) {
+                return {
+                    nama: params.term,
+                    // kode_PS: prodi,
+                    number: 100,
+                };
+            },
+            processResults: function(response) {
+                var results = [];
+
+                $.each(response, function(index, item) {
+                    results.push({
+
+                        id: item.kode,
+                        text: item.nama,
+                        nama_PS: item.nama_PS,
+                    });
+                });
+                console.log(response);
+                return {
+                    results: results
+                }
+            },
+            cache: true
+        },
+    })
     </script>
+
+
 </body>
 <div></div>
 <footer>

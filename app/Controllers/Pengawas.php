@@ -5,10 +5,19 @@ namespace App\Controllers;
 use App\Models\StaffModel;
 use App\Models\PengawasModel;
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\Response;
 use CodeIgniter\Pager\PagerRenderer;
 
 class Pengawas extends Controller
 {
+
+
+    protected $request;
+    public function __construct()
+    {
+        $this->request = request();
+    }
+
     public function index()
     {
         $session = session();
@@ -45,6 +54,43 @@ class Pengawas extends Controller
         }
         // return view('staf_view', $data);
     }
+
+    
+    public function get_api()
+    {
+
+        $key = $this->request->getGet('nama');
+        $data = array();
+        
+
+        $curl_staf = curl_init();
+        curl_setopt($curl_staf, CURLOPT_URL, 'https://sia.unram.ac.id/index.php/api/Staf?kode_nama=' . $key);
+        curl_setopt($curl_staf, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_staf, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl_staf, CURLOPT_HTTPHEADER, array('authorization: Basic bXl1bnJhbTp3M3lSZkRuazloSmRKVg'));
+        $staf = curl_exec($curl_staf);
+        $data_staf = json_decode($staf);
+
+
+        $curl_dosen = curl_init();
+        curl_setopt($curl_dosen, CURLOPT_URL, 'https://sia.unram.ac.id/index.php/api/Dosen?kode_nama=' . $key);
+        curl_setopt($curl_dosen, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_dosen, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl_dosen, CURLOPT_HTTPHEADER, array('authorization: Basic cHVzdGlrOnZhQ0FUZUlUeXJpSGFtRVlF'));
+        $dosen = curl_exec($curl_dosen);
+        $data_dosen = json_decode($dosen);
+
+        $data = array_merge($data_staf, $data_dosen);
+       
+        return json_encode($data);
+        
+        // dd($data);
+
+        // $data = array_merge($data_staf, $data_dosen);
+        
+        // return (empty($data)) ? : array() ; $data;
+    }
+
     
 
    
