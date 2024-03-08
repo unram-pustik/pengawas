@@ -26,33 +26,49 @@ class Pengawas extends Controller
         $data_fakultas = $session->get('fakultas');
         
         // dd($data_fakultas);
-        $staffModel = new StaffModel();
+        // $staffModel = new StaffModel();
         
         // Konfigurasi Paginasi
         $pager = \Config\Services::pager();
         $pager->setPath(''); // Menyembunyikan URL paginasi
 
-        $data['staf'] = $staffModel->where('unit_kode_fakultas', $data_fakultas)
-                            ->orderBy('kode', 'DESC')->findAll();
-        $data['pager'] = $staffModel->pager;
+        // $data['staf'] = $staffModel->where('unit_kode_fakultas', $data_fakultas)
+        //                     ->orderBy('kode', 'DESC')->findAll();
+        // $data['pager'] = $staffModel->pager;
 
-        return view('v_daftar_pengawas', $data);
+        return view('v_daftar_pengawas');
     }
 
     public function tambah_pengawas()
     {
         
         $pengawasModel = new PengawasModel();
-        $request = $this->request->getVar();
-        foreach ($request['staf'] as $kode) {
-            $data = [
-                'nip'   => $kode,
-                'ujian' => $request['ujian'],
+        $data['pengawas'] = $_POST['pengawas'];
+
+        foreach ($_POST['pengawas'] as $pngwas) {
+            var_dump($pngwas);
+            $pengawas_decode = json_decode($pngwas, true);
+            
+            $nama_pengawas = $pengawas_decode["text"];
+            $kode_pengawas = $pengawas_decode["id"];
+            $unit_pengawas = $pengawas_decode["unit"] ?? "";
+            $fak_pengawas   = $pengawas_decode["kode_fak"] ?? "";
+            
+            // dd($pengawas_decode);
+
+            $data_input = [
+                'nama' => $nama_pengawas,
+                'nip'   => $kode_pengawas,
+                'unit_kerja' => $unit_pengawas,
+                'kode_fak' => $fak_pengawas,
+                'ujian' => $_POST['ujian'],
+                
             ];
-            $pengawasModel->insert($data);
+            $pengawasModel->insert($data_input);
             
         }
-        // return view('staf_view', $data);
+        // return view('v_pengawas', $data);
+        
     }
 
     
@@ -90,8 +106,5 @@ class Pengawas extends Controller
         
         // return (empty($data)) ? : array() ; $data;
     }
-
-    
-
-   
+ 
 }

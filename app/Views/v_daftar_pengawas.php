@@ -8,17 +8,18 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/fontawesome-free/css/all.min.css">
+     <!-- Select2 -->
+     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/daterangepicker/daterangepicker.css">
+    <!-- <link rel="stylesheet" href="<?= base_url() ?>template/plugins/daterangepicker/daterangepicker.css"> -->
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet"
         href="<?= base_url() ?>template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+   
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet"
         href="<?= base_url() ?>template/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
@@ -72,21 +73,11 @@
                         </div> -->
                         <div class="form-group">
                             <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
-                            <select class="select2bs4 select2" id="select_staff" name="staf[]" multiple="multiple"
+                            <select class="select2bs4 select2" id="select_staff" name="pengawas[]" multiple="multiple"
                                 data-placeholder="Pilih Pengawas" style="width: 100%;">
 
 
-                                <!-- <?php foreach ($staf as $row): ?>
-                                <?php if (is_array($row)) { ?>
-                                <?php if (array_key_exists('kode', $row)) { ?>
-                                <option value="<?php echo $row['kode']; ?>"><?php echo $row['nama']; ?></option>
-                                <?php } else { ?>
-                                <p>Error: 'kode' not found in the array.</p>
-                                <?php } ?>
-                                <?php } else { ?>
-                                <p>Error: The variable is not an array.</p>
-                                <?php } ?>
-                                <?php endforeach; ?> -->
+                                
                             </select>
                         </div>
 
@@ -112,7 +103,7 @@
     <script src="<?= base_url() ?>template/plugins/moment/moment.min.js"></script>
     <script src="<?= base_url() ?>template/plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- date-range-picker -->
-    <script src="<?= base_url() ?>template/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- <script src="<?= base_url() ?>template/plugins/daterangepicker/daterangepicker.js"></script> -->
     <!-- bootstrap color picker -->
     <script src="<?= base_url() ?>template/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
@@ -183,18 +174,25 @@
             if (item.loading)
                 return item.text;
 
-            id = JSON.parse(item.id);
+            var id = JSON.parse(item.id);
+
+            var PSInfo = '-';
+            if (item.nama_PS) {
+                PSInfo = '(' + item.nama_PS + ')';
+            }
+
+            var unitInfo = id["unit"] ? id["unit"] : "-";
+
             return '<strong>' + item.text + '</strong><br/>' +
                 '<small>' + id["id"] + '</small> <br/>' +
-                '<small><b>(' + item.nama_PS + ')<b/></small>';
+                '<small><b>Jurusan: ' + PSInfo + ' / ' + 'Unit: ' + unitInfo + '<b/></small>';
         },
-        // templateSelection: function(item) {
-        //     // Add a numbering to the selected item
-        //     var indexed = $('#select_staff').val().indexOf(item.id);
-        //     var selectedNumber = indexed + 1;
 
-        //     return '<strong>Penguji ' + selectedNumber + '</strong>' + ' | ' + item.text;
-        // },
+        templateSelection: function(item) {
+            var data_id = JSON.parse(item.id);
+
+            return data_id["id"] + ' | ' + item.text;
+        },
         ajax: {
             url: '<?= base_url() ?>pengawas/get_api',
             type: 'GET',
@@ -206,7 +204,6 @@
             data: function(params) {
                 return {
                     nama: params.term,
-                    // kode_PS: prodi,
                     number: 100,
                 };
             },
@@ -215,13 +212,19 @@
 
                 $.each(response, function(index, item) {
                     results.push({
-
-                        id: item.kode,
-                        text: item.nama,
-                        nama_PS: item.nama_PS,
+                            id: JSON.stringify({
+                                "text": item.nama,
+                                "id": item.kode,
+                                "nama_PS": item.nama_PS,
+                                "unit": item.unit,
+                                "kode_fak" : item.kode_fak,
+                            }),
+                            text: item.nama,
+                            nama_PS: item.nama_PS,
+                            unit: item.unit,
+                            kode_fak: item.kode_fak,
+                        });
                     });
-                });
-                console.log(response);
                 return {
                     results: results
                 }
