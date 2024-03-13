@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\StaffModel;
+use App\Models\UjianModel;
 use App\Models\PengawasModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
@@ -27,6 +27,8 @@ class Pengawas extends Controller
         
         // dd($data_fakultas);
         // $staffModel = new StaffModel();
+        $ujianModel = new UjianModel();
+        $data['ujian'] = $ujianModel->findAll();
         
         // Konfigurasi Paginasi
         $pager = \Config\Services::pager();
@@ -36,40 +38,10 @@ class Pengawas extends Controller
         //                     ->orderBy('kode', 'DESC')->findAll();
         // $data['pager'] = $staffModel->pager;
 
-        return view('v_daftar_pengawas');
+        return view('form/v_tambah_pengawas');
     }
 
-    public function tambah_pengawas()
-    {
-        
-        $pengawasModel = new PengawasModel();
-        $data['pengawas'] = $_POST['pengawas'];
-
-        foreach ($_POST['pengawas'] as $pngwas) {
-            var_dump($pngwas);
-            $pengawas_decode = json_decode($pngwas, true);
-            
-            $nama_pengawas = $pengawas_decode["text"];
-            $kode_pengawas = $pengawas_decode["id"];
-            $unit_pengawas = $pengawas_decode["unit"] ?? "";
-            $fak_pengawas   = $pengawas_decode["kode_fak"] ?? "";
-            
-            // dd($pengawas_decode);
-
-            $data_input = [
-                'nama' => $nama_pengawas,
-                'nip'   => $kode_pengawas,
-                'unit_kerja' => $unit_pengawas,
-                'kode_fak' => $fak_pengawas,
-                'ujian' => $_POST['ujian'],
-                
-            ];
-            $pengawasModel->insert($data_input);
-            
-        }
-        // return view('v_pengawas', $data);
-        
-    }
+   
 
     
     public function get_api()

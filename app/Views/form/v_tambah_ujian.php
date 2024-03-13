@@ -39,7 +39,7 @@
                     <h3 class="card-title">Daftar Ujian</h3>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="<?= base_url(); ?>ujian/tambah_ujian">
+                    <form method="post" action="<?= base_url(); ?>form/tambah_ujian">
                         <div class="row">
                             <div class="col-sm-12">
                                 <!-- text input -->

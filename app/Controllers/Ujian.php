@@ -8,7 +8,7 @@ class Ujian extends BaseController
 {
     public function index()
     {
-        return view('v_ujian');
+        return view('form/v_tambah_ujian');
     }
 
     public function tambah_ujian()
@@ -26,9 +26,7 @@ class Ujian extends BaseController
         // dd($data);
         $ujianModel->insert($data);
     
-        return redirect()->to(base_url('ujian'));
-
-
+        return redirect()->to(base_url('/ujian'));
     }
 
     public function store()
