@@ -8,8 +8,8 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/fontawesome-free/css/all.min.css">
-     <!-- Select2 -->
-     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- daterange picker -->
     <!-- <link rel="stylesheet" href="<?= base_url() ?>template/plugins/daterangepicker/daterangepicker.css"> -->
@@ -19,7 +19,7 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-   
+
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet"
         href="<?= base_url() ?>template/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
@@ -30,10 +30,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>template/dist/css/adminlte.min.css">
 
-
-
 </head>
-
 
 <body>
     <div class="container mt-5">
@@ -51,7 +48,10 @@
                                     <label>Daftar Ujian</label>
                                     
                                     
-                                    
+
+
+
+
 
                                     <select class="form-control" name="kode_ujian" style="width: 100%;">
                                         <option selected="selected">Pilih Ujian</option>
@@ -81,7 +81,7 @@
                                 data-placeholder="Pilih Pengawas" style="width: 100%;">
 
 
-                                
+
                             </select>
                         </div>
 
@@ -205,19 +205,19 @@
 
                 $.each(response, function(index, item) {
                     results.push({
-                            id: JSON.stringify({
-                                "text": item.nama,
-                                "id": item.kode,
-                                "nama_PS": item.nama_PS,
-                                "unit": item.unit,
-                                "kode_fak" : item.kode_fak,
-                            }),
-                            text: item.nama,
-                            nama_PS: item.nama_PS,
-                            unit: item.unit,
-                            kode_fak: item.kode_fak,
-                        });
+                        id: JSON.stringify({
+                            "text": item.nama,
+                            "id": item.kode,
+                            "nama_PS": item.nama_PS,
+                            "unit": item.unit,
+                            "kode_fak": item.kode_fak,
+                        }),
+                        text: item.nama,
+                        nama_PS: item.nama_PS,
+                        unit: item.unit,
+                        kode_fak: item.kode_fak,
                     });
+                });
                 return {
                     results: results
                 }

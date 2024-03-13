@@ -29,14 +29,21 @@ class Ujian extends BaseController
         return redirect()->to(base_url('/ujian'));
     }
 
-    public function store()
+    public function list_ujian()
     {
-        //
+        $ujianModel = new UjianModel();
+        $data_ujian = $ujianModel->findAll();
+        
+        return view('v_list_ujian', ['data_ujian' => $data_ujian]);
     }
 
-    public function show($id)
+    public function detail_ujian($kode_ujian)
     {
-        //
+        $ujianModel = new UjianModel();
+        $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
+        // dd($data_ujian);
+        return view('v_detail_ujian', ['data_ujian' => $data_ujian]);
+        
     }
 
     public function edit($id)

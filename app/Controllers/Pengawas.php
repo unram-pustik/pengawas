@@ -41,9 +41,6 @@ class Pengawas extends Controller
         return view('form/v_tambah_pengawas');
     }
 
-   
-
-    
     public function get_api()
     {
 
