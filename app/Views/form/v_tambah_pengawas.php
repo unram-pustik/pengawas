@@ -79,9 +79,7 @@
                             <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
                             <select class="select2bs4 select2" id="select_staff" name="pengawas[]" multiple="multiple"
                                 data-placeholder="Pilih Pengawas" style="width: 100%;">
-
-
-
+                                
                             </select>
                         </div>
 
@@ -163,6 +161,8 @@
             return markup;
         },
         minimumInputLength: 2,
+        maximumInputLength: 5, // tambahkan limit inputan
+        maximumSelectionLength: 3, // tambahkan limit pilihan
         templateResult: function(item) {
             if (item.loading)
                 return item.text;
@@ -184,7 +184,14 @@
         templateSelection: function(item) {
             var data_id = JSON.parse(item.id);
 
-            return data_id["id"] + ' | ' + item.text;
+              // Add a numbering to the selected item
+              var indexed = $('#select_staff').val().indexOf(item.id);
+                var selectedNumber = indexed + 1;
+
+                // return '<strong>Penguji ' + selectedNumber + '</strong>' + ' | ' + item.text;
+
+            return selectedNumber +' | ' + data_id["id"] +' | ' + item.text;
+            
         },
         ajax: {
             url: '<?= base_url() ?>pengawas/get_api',

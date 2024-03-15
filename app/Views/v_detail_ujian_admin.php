@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <!-- <div class="container mt-5">
         <div class="mt-6">
             <div class="card card-success">
                 <div class="card-header">
@@ -61,16 +61,16 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <hr>
-
-    <div class="container mt-5">
-        <div class="mt-3">
+    </div> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
             <table class="table table-bordered" id="pengawas-list">
                 <thead>
                     <tr>
-
+                        <th colspan="6" class="text-center">Daftar Pengawas Ujian</th>
+                    </tr>
+                    <tr>
                         <th>Nama Ujian</th>
                         <th>NIP</th>
                         <th>Nama</th>
@@ -80,27 +80,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    
-                    foreach ($data_pengawas as $data) : ?>
+                    <?php foreach ($data_pengawas as $data) : ?>
                     <tr>
-
-                        <td> <?= $data->kode_ujian ?> </td>
+                        <td><?= $data->kode_ujian ?></td>
                         <td><?= $data->nip ?></td>
                         <td><?= $data->nama ?></td>
-                        <td><?= $data->unit_kerja?></td>
-                        <td><?= $data->kode_fak?></td>
+                        <td><?= $data->unit_kerja ?></td>
+                        <td><?= $data->kode_fak ?></td>
                         <td><a href="<?= base_url('form/hapus_pengawas/') . $data->kode_pengawas ?>"
                             class="btn-hapus-pengawas"
                             data-kode_pengawas="<?= $data->kode_pengawas ?>"><i
                                     class="fas fa-trash"></i></a></td>
                     </tr>
                     <?php endforeach ?>
-
                 </tbody>
             </table>
         </div>
     </div>
+</div>
 
 
 

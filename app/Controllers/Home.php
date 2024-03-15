@@ -6,6 +6,6 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('layout/v_wrapper');
+        return view('v_login');
     }
 }

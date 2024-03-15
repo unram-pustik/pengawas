@@ -32,9 +32,13 @@
 
 
 <body>
+
     <div class="container mt-5">
         <div class="mt-3">
+        <a href="<?= site_url('ujian/list_ujian/') ?>" class="btn btn-success">Lihat List Daftar Ujian</a>
+        <hr>
             <div class="card card-success">
+            
                 <div class="card-header">
                     <h3 class="card-title">Daftar Ujian</h3>
                 </div>
@@ -61,9 +65,14 @@
                                     <textarea class="form-control" rows="3" name="ket_ujian"
                                         placeholder="Keterangan"></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label>Jumlah Pengawas</label>
+                                    <input class="form-control" name="tahun_ujian" type="text"
+                                        placeholder="Tahun Ujian">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Tanggal Mulai Ujian :</label>
                             <div class="input-group date" id="tgl_mulai" data-target-input="nearest">
                                 <input type="text" class="form-control datetimepicker-input" name="tgl_mulai_ujian"
@@ -85,7 +94,7 @@
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
                     </form>
                 </div>
@@ -98,8 +107,6 @@
     <script src="<?= base_url() ?>template/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="<?= base_url() ?>template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Select2 -->
-    <script src="<?= base_url() ?>template/plugins/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap4 Duallistbox -->
     <script src="<?= base_url() ?>template/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
     <!-- InputMask -->
@@ -121,8 +128,6 @@
     <script src="<?= base_url() ?>template/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url() ?>template/dist/js/demo.js"></script>
-
-    <script src="<?= base_url() ?>template/plugins/select2/js/select2.full.min.js"></script>
     <!-- Page specific script -->
     <script>
     // Date range picker
@@ -146,16 +151,6 @@
         }
     });
 
-
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    })
-    $(document).ready(function() {
-        $('.js-example-basic-multiple').select2();
-    });
     //Date range as a button
     $('#daterange-btn').daterangepicker({
             ranges: {

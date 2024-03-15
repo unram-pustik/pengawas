@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UjianModel;
+use App\Models\M_user;
 
 class Ujian extends BaseController
 {
@@ -40,9 +41,19 @@ class Ujian extends BaseController
     public function detail_ujian($kode_ujian)
     {
         $ujianModel = new UjianModel();
+       
         $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
         // dd($data_ujian);
-        return view('v_detail_ujian', ['data_ujian' => $data_ujian]);
+        
+        $data_pengawas = $ujianModel->db->table('pengawas')->where('kode_ujian', $kode_ujian)->get()->getResult();
+        $session = session();
+        $role = $_SESSION['role'];
+        // dd($role);
+        if ($role == 1) {
+            return view('v_detail_ujian_admin', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
+        } else {
+            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
+        }
         
     }
 

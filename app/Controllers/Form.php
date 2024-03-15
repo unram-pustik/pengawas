@@ -19,7 +19,7 @@ class Form extends BaseController
         $data['pengawas'] = $_POST['pengawas'];
 
         foreach ($_POST['pengawas'] as $pngwas) {
-            var_dump($pngwas);
+            // var_dump($pngwas);
             $pengawas_decode = json_decode($pngwas, true);
             
             $nama_pengawas = $pengawas_decode["text"];
@@ -37,10 +37,17 @@ class Form extends BaseController
                 'kode_ujian' => $_POST['kode_ujian'],
                 
             ];
+            
+            $cek_data = $pengawasModel->where('nip', $kode_pengawas)->first();
+            if($cek_data){
+                // jika sudah ada, maka skip insert data
+                continue;
+            }
+            
             $pengawasModel->insert($data_input);
             
         }
-        // return view('v_pengawas', $data);
+        return redirect()->to('ujian/detail_ujian/'.$_POST['kode_ujian']);
         
     }
 
@@ -50,7 +57,7 @@ class Form extends BaseController
         $data = [
             'kode_ujian' => $this->request->getPost('kode_ujian'),
             'nama_ujian' => $this->request->getPost('nama_ujian'),
-            'tahun_ujian' => $this->request->getPost('nama_ujian'),
+            'tahun_ujian' => $this->request->getPost('tahun_ujian'),
             'ket_ujian' => $this->request->getPost('ket_ujian'),
             'tgl_mulai_ujian'  => date('Y-m-d'),
             'tgl_akhir_ujian'  => date('Y-m-d'),
@@ -60,6 +67,17 @@ class Form extends BaseController
         $ujianModel->insert($data);
     
         return redirect()->to(base_url('/ujian'));
+    }
+
+    public function hapus_pengawas($kode_pengawas)
+    {
+        $pengawasModel = new PengawasModel();
+        $hapus = $pengawasModel->where('kode_pengawas', $kode_pengawas)->delete();
+
+        if($hapus)
+        {
+            return redirect()->back()->with('sukses', 'Data pengawas berhasil dihapus');
+        }
     }
     public function form_ujian()
     {

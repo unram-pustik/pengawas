@@ -70,10 +70,44 @@ class Pengawas extends Controller
         return json_encode($data);
         
         // dd($data);
-
-        // $data = array_merge($data_staf, $data_dosen);
-        
         // return (empty($data)) ? : array() ; $data;
     }
+
+
+    public function show_pengawas()
+    {
+        $ujianModel = new UjianModel();
+        $pengawasModel = new PengawasModel();
+        $renderer = service('renderer');
+        $data_pengawas = $pengawasModel->findAll();
+        $data = [
+            'pengawas' => $data_pengawas,
+        ];
+        $name = 'v_list_pengawas';
+        $options = [];
+        dd($data);
+
+        return $renderer->setData($data, 'raw')->render($name, $options);
+    }
+
+    public function detail_ujian($kode_ujian)
+    {
+        $ujianModel = new UjianModel();
+        $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
+        // dd($data_ujian);
+        
+        $data_pengawas = $ujianModel->db->table('pengawas')->where('kode_ujian', $kode_ujian)->get()->getResult();
+        
+        // $data_ujian['pengawas'] = $data_pengawas;
+        // dd($data_pengawas);
+        return view('v_list_pengawas', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
+        
+    }
+
+    
+    
+
+
+
  
 }

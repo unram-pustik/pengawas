@@ -44,11 +44,11 @@ class Login extends BaseController
             // dd($_SESSION);
 
             if ($dataUser["role"] == "1") {
-                return redirect()->to(base_url('/user'));
+                return redirect()->to(base_url('/ujian'));
             }
            
             elseif ($dataUser["role"] == "2") {
-                return redirect()->to(base_url('/pengawas'));
+                return redirect()->to(base_url('ujian/list_ujian'));
             }
             } else {
                 session()->setFlashdata('error', 'Username & Password Salah!!!!');
