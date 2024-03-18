@@ -85,7 +85,7 @@ class Pengawas extends Controller
         ];
         $name = 'v_list_pengawas';
         $options = [];
-        dd($data);
+        // dd($data);
 
         return $renderer->setData($data, 'raw')->render($name, $options);
     }

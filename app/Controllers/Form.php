@@ -3,6 +3,8 @@
 namespace App\Controllers;
 use App\Models\UjianModel;
 use App\Models\PengawasModel;
+use App\Models\LimitModel;
+use App\Models\FakultasModel;
 
 class Form extends BaseController
 {
@@ -14,7 +16,6 @@ class Form extends BaseController
 
     public function tambah_pengawas()
     {
-        
         $pengawasModel = new PengawasModel();
         $data['pengawas'] = $_POST['pengawas'];
 
@@ -43,9 +44,7 @@ class Form extends BaseController
                 // jika sudah ada, maka skip insert data
                 continue;
             }
-            
             $pengawasModel->insert($data_input);
-            
         }
         return redirect()->to('ujian/detail_ujian/'.$_POST['kode_ujian']);
         
@@ -79,9 +78,28 @@ class Form extends BaseController
             return redirect()->back()->with('sukses', 'Data pengawas berhasil dihapus');
         }
     }
-    public function form_ujian()
+    public function tambah_limit()
     {
-        //
+        $limitModel = new LimitModel();
+        $fakultasModel = new FakultasModel();
+        $ujianModel = new UjianModel();
+
+        $data_f = $fakultasModel->findAll();
+        $data_ujian = $ujianModel->findAll();
+        // dd($data_ujian);
+        
+        $data = [
+            'kode_ujian' =>$_POST['kode_ujian'],
+            'kode_fak' => $_POST['kode_fak'],
+            'limit' => $this->request->getPost('limit'),
+            'fakultas' => $data_f,
+            'data_ujian' => $data_ujian,
+        ];
+        
+        $limitModel->insert($data);
+        
+        // return redirect()->back()->with('sukses', 'Limit waktu berhasil ditambahkan');
+     return redirect()->to('ujian/limit/'.$_POST['kode_ujian']);
     }
     
     public function create()

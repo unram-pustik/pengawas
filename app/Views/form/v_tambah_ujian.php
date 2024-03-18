@@ -32,7 +32,6 @@
 
 
 <body>
-
     <div class="container mt-5">
         <div class="mt-3">
         <a href="<?= site_url('ujian/list_ujian/') ?>" class="btn btn-success">Lihat List Daftar Ujian</a>

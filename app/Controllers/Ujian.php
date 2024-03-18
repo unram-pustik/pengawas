@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\UjianModel;
-use App\Models\M_user;
+use App\Models\fakultasModel;
+use App\Models\LimitModel;
+
 
 class Ujian extends BaseController
 {
@@ -55,6 +57,36 @@ class Ujian extends BaseController
             return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
         }
         
+    }
+
+    
+    public function limit()
+    {
+        $fakultasModel = new FakultasModel();
+        $ujianModel = new UjianModel();
+        $limitModel = new LimitModel();
+        $data_fakultas = $fakultasModel->findAll();
+        $data_ujian = $ujianModel->findAll();
+        $data_limit = $limitModel->getDataLimit();
+
+        $data = [
+            'kode' => $this->request->getPost('kode'),
+            'fakultas_nama' => $this->request->getPost('fakultas_nama'),
+        ];
+        return view('form\v_tambah_limit', ['data' => $data, 'data_limit' => $data_limit, 'data_ujian' => $data_ujian, 'data_fakultas'=>$data_fakultas]);
+    }
+
+    public function show_limit()
+    {
+        $fakultasModel = new FakultasModel();
+        $limitModel = new LimitModel();
+        $ujianModel = new UjianModel();
+        $data_ujian = $ujianModel->findAll();
+        $data_fakultas = $fakultasModel->findAll();
+        $data_limit = $limitModel->getDataLimit();
+        // dd($data_limit);
+
+        return view('form\v_tambah_limit', ['data_limit' => $data_limit, 'data_ujian' => $data_ujian, 'data_fakultas'=>$data_fakultas]);
     }
 
     public function edit($id)
