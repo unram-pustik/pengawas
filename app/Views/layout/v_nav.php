@@ -35,6 +35,7 @@
           <li class="nav-item">
             <?php if (session()->get('role') == '1') : ?>
               <a href="<?= base_url(); ?>ujian" class="nav-link">
+              
             <?php else : ?>
               <a href="<?= base_url(); ?>ujian/list_ujian" class="nav-link">
             <?php endif; ?>

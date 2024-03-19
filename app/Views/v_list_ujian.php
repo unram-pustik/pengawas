@@ -2,8 +2,6 @@
 <?php echo view('layout/v_nav'); ?>
 <head>
 <?php echo view('layout/v_head'); ?>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>List Ujian</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -42,6 +40,10 @@
                             <?php echo $du['tgl_akhir_ujian']; ?>
                         </td>
                         <td> <a href="<?= site_url('ujian/detail_ujian/'. $du['kode_ujian']) ?>" class="btn btn-success">Detail</a>
+                        
+                        <?php if(session()->get('role') == '1'): ?>
+                        <a href="<?= site_url('ujian/limit/'. $du['kode_ujian']) ?>" class="btn btn-warning">Tambah Limit</a>
+                        <?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

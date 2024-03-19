@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UjianModel;
 use App\Models\PengawasModel;
+use App\Models\PegawaiModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\Pager\PagerRenderer;
@@ -41,6 +42,21 @@ class Pengawas extends Controller
         return view('form/v_tambah_pengawas');
     }
 
+    
+    public function get_Pegawai()
+    {
+        // Mendapatkan request dari nama 
+        $nama = $this->request->getGet('nama');
+        // dd($nama);
+        // Mengambil data pegawai berdasarkan nama
+        $pegawaiModel = new PegawaiModel();
+        $dataPegawai = $pegawaiModel->like('nama', '%'.$nama.'%')->findAll();
+        // dd($dataPegawai);
+        // Mengembalikan data pegawai dalam format json
+        return json_encode($dataPegawai);
+    }
+
+
     public function get_api()
     {
 
@@ -55,7 +71,6 @@ class Pengawas extends Controller
         curl_setopt($curl_staf, CURLOPT_HTTPHEADER, array('authorization: Basic bXl1bnJhbTp3M3lSZkRuazloSmRKVg'));
         $staf = curl_exec($curl_staf);
         $data_staf = json_decode($staf);
-
 
         $curl_dosen = curl_init();
         curl_setopt($curl_dosen, CURLOPT_URL, 'https://sia.unram.ac.id/index.php/api/Dosen?kode_nama=' . $key);

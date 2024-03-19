@@ -3,12 +3,6 @@
 
 <head>
     <?php echo view('layout/v_head'); ?>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/fontawesome-free/css/all.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -21,85 +15,89 @@
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/bs-stepper/css/bs-stepper.min.css">
     <!-- dropzonejs -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/dropzone/min/dropzone.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/dist/css/adminlte.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <!-- <div class="container mt-5">
-        <div class="mt-6">
-            <div class="card card-success">
-                <div class="card-header">
-                    <h3 class="card-title">Daftar Pengawas</h3>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="<?= base_url(); ?>form/tambah_pengawas">
-                       
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="kode">Kode Ujian : </label>
-                                    <input type="text" class="form-control" id="kode" name="kode_ujian"
-                                        value="<?= $data_ujian['kode_ujian']; ?>" readonly>
+    
+        <div class="container mt-5">
+            <div class="mt-6">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Daftar Pengawas</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="<?= base_url(); ?>form/tambah_pengawas">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="kode">Kode Ujian : </label>
+                                        <input type="text" class="form-control" id="kode" name="kode_ujian"
+                                            value="<?= $data_ujian['kode_ujian']; ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama">Nama Ujian : </label>
+                                        <input type="text" class="form-control" id="nama" name="nama_ujian"
+                                            value="<?= $data_ujian['nama_ujian']; ?>" readonly>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama">Nama Ujian : </label>
-                                    <input type="text" class="form-control" id="nama" name="nama_ujian"
-                                        value="<?= $data_ujian['nama_ujian']; ?>" readonly>
+                                    <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
+                                    <select class="select2bs4 select2" id="select_staff" name="pengawas[]"
+                                        multiple="multiple" data-placeholder="Pilih Pengawas"
+                                        style="width: 100%;"></select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
-                                <select class="select2bs4 select2" id="select_staff" name="pengawas[]"
-                                    multiple="multiple" data-placeholder="Pilih Pengawas" style="width: 100%;"></select>
-                            </div>
-                        </div>
-                        <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
-                    </form>
+                            <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <table class="table table-bordered" id="pengawas-list">
-                <thead>
-                    <tr>
-                        <th colspan="6" class="text-center">Daftar Pengawas Ujian</th>
-                    </tr>
-                    <tr>
-                        <th>Nama Ujian</th>
-                        <th>NIP</th>
-                        <th>Nama</th>
-                        <th>Jabatan</th>
-                        <th>Unit</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($data_pengawas as $data) : ?>
-                    <tr>
-                        <td><?= $data->kode_ujian ?></td>
-                        <td><?= $data->nip ?></td>
-                        <td><?= $data->nama ?></td>
-                        <td><?= $data->unit_kerja ?></td>
-                        <td><?= $data->kode_fak ?></td>
-                        <td><a href="<?= base_url('form/hapus_pengawas/') . $data->kode_pengawas ?>"
-                            class="btn-hapus-pengawas"
-                            data-kode_pengawas="<?= $data->kode_pengawas ?>"><i
-                                    class="fas fa-trash"></i></a></td>
-                    </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered" id="pengawas-list">
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="text-center">Daftar Pengawas Ujian</th>
+                            </tr>
+                            <tr>
+                                <th>Nama Ujian</th>
+                                <th>NIP</th>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th>Unit</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($data_pengawas as $data) : ?>
+                            <tr>
+                                <td><?= $data->kode_ujian ?></td>
+                                <td><?= $data->nip ?></td>
+                                <td><?= $data->nama ?></td>
+                                <td><?= $data->unit_kerja ?></td>
+                                <td><?= $data->kode_fak ?></td>
+                                <td><a href="<?= base_url('form/hapus_pengawas/') . $data->kode_pengawas ?>"
+                                        class="btn-hapus-pengawas" data-kode_pengawas="<?= $data->kode_pengawas ?>"><i
+                                            class="fas fa-trash"></i></a></td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-
+    
+    
+    
+    <footer>
+    <?php echo view('layout/v_footer'); ?>
+</footer>
 
 
 
@@ -235,9 +233,7 @@
     })
     </script>
 
-</body>
-<footer>
-    <?php echo view('layout/v_footer'); ?>
-</footer>
 
+
+</body>
 </html>

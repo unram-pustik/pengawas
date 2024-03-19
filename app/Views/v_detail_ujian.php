@@ -1,14 +1,11 @@
 <html lang="en">
+<?php helper('kode_helper');
+ ?>
+
 <?php echo view('layout/v_nav'); ?>
 
 <head>
-    <?php echo view('layout/v_head'); ?>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/fontawesome-free/css/all.min.css">
+<?php echo view('layout/v_head'); ?>
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -21,8 +18,6 @@
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/bs-stepper/css/bs-stepper.min.css">
     <!-- dropzonejs -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/dropzone/min/dropzone.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/dist/css/adminlte.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
@@ -30,13 +25,26 @@
 <body>
     <div class="container mt-5">
         <div class="mt-6">
+            <div class=" col-sm-12">
+            <div class="info-box bg-warning">
+                    <div class="info-box-content"> 
+                        <span class="info-box-number">Jumlah Pengawas yang dapat diajukan oleh 
+                            <?php if(!empty($data_limit)): ?>
+                            <?php echo $data_limit[0]['fakultas_nama']; ?>: <?php echo $data_limit[0]['limit']; ?>
+                            <?php else: ?>
+                            <span style="color:red;">Data kosong</span>
+                            <?php endif; ?>
+                           
+                    </div>
+                </div>
+            </div>
             <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">Daftar Pengawas</h3>
                 </div>
                 <div class="card-body">
                     <form method="post" action="<?= base_url(); ?>form/tambah_pengawas">
-                       
+
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -50,6 +58,7 @@
                                         value="<?= $data_ujian['nama_ujian']; ?>" readonly>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
                                 <select class="select2bs4 select2" id="select_staff" name="pengawas[]"
@@ -91,8 +100,7 @@
                         <td><?= $data->unit_kerja?></td>
                         <td><?= $data->kode_fak?></td>
                         <td><a href="<?= base_url('form/hapus_pengawas/') . $data->kode_pengawas ?>"
-                            class="btn-hapus-pengawas"
-                            data-kode_pengawas="<?= $data->kode_pengawas ?>"><i
+                                class="btn-hapus-pengawas" data-kode_pengawas="<?= $data->kode_pengawas ?>"><i
                                     class="fas fa-trash"></i></a></td>
                     </tr>
                     <?php endforeach ?>
@@ -179,15 +187,15 @@
             var id = JSON.parse(item.id);
 
             var PSInfo = '-';
-            if (item.nama_PS) {
-                PSInfo = '(' + item.nama_PS + ')';
+            if (item.unit_kerja) {
+                PSInfo = '(' + item.unit_kerja + ')';
             }
 
-            var unitInfo = id["unit"] ? id["unit"] : "-";
+            var unitInfo = id["unit_kerja"] ? id["unit_kerja"] : "-";
 
             return '<strong>' + item.text + '</strong><br/>' +
                 '<small>' + id["id"] + '</small> <br/>' +
-                '<small><b>Jurusan: ' + PSInfo + ' / ' + 'Unit: ' + unitInfo + '<b/></small>';
+                '<small><b>Unit: ' + unitInfo + '<b/></small>';
         },
 
         templateSelection: function(item) {
@@ -197,11 +205,11 @@
             var indexed = $('#select_staff').val().indexOf(item.id);
             var selectedNumber = indexed + 1;
 
-            return selectedNumber + ' | ' + data_id["id"] + ' | ' + data_id["text"];
+            return selectedNumber + ' | ' + data_id["id"] + ' | ' + data_id["text"] + ' | ' + data_id["status"];
 
         },
         ajax: {
-            url: '<?= base_url() ?>pengawas/get_api',
+            url: '<?= base_url() ?>pengawas/get_Pegawai',
             type: 'GET',
 
             dataType: 'json',
@@ -218,14 +226,16 @@
                     results.push({
                         id: JSON.stringify({
                             "text": item.nama,
-                            "id": item.kode,
-                            "nama_PS": item.nama_PS,
-                            "unit": item.unit,
-                            "kode_fak": item.kode_fak,
+                            "id": item.nip,
+                            "gol": item.gol,
+                            "status": item.status,
+                            "unit_kerja": item.unit_kerja,
+                            "kode_fakultas": item.kode_fakultas,
                         }),
+                        //data yang mau dipakai
                         text: item.nama,
-                        nama_PS: item.nama_PS,
-                        unit: item.unit,
+                        status: item.status,
+                        unit_kerja: item.unit_kerja,
                         kode_fak: item.kode_fak,
                     });
                 });

@@ -18,25 +18,17 @@ class Form extends BaseController
     {
         $pengawasModel = new PengawasModel();
         $data['pengawas'] = $_POST['pengawas'];
+        $kode_ujian = $_POST['kode_ujian'];
 
         foreach ($_POST['pengawas'] as $pngwas) {
-            // var_dump($pngwas);
+             var_dump($pngwas);
             $pengawas_decode = json_decode($pngwas, true);
             
-            $nama_pengawas = $pengawas_decode["text"];
             $kode_pengawas = $pengawas_decode["id"];
-            $unit_pengawas = $pengawas_decode["unit"] ?? "";
-            $fak_pengawas   = $pengawas_decode["kode_fak"] ?? "";
-            
-            // dd($pengawas_decode);
 
             $data_input = [
-                'nama' => $nama_pengawas,
                 'nip'   => $kode_pengawas,
-                'unit_kerja' => $unit_pengawas,
-                'kode_fak' => $fak_pengawas,
-                'kode_ujian' => $_POST['kode_ujian'],
-                
+                'kode_ujian' => $kode_ujian,
             ];
             
             $cek_data = $pengawasModel->where('nip', $kode_pengawas)->first();

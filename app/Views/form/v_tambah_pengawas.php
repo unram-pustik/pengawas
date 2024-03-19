@@ -46,13 +46,6 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Daftar Ujian</label>
-                                    
-                                    
-
-
-
-
-
                                     <select class="form-control" name="kode_ujian" style="width: 100%;">
                                         <option selected="selected">Pilih Ujian</option>
                                         <option value="SNBT">SNBT </option>
@@ -79,10 +72,8 @@
                             <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
                             <select class="select2bs4 select2" id="select_staff" name="pengawas[]" multiple="multiple"
                                 data-placeholder="Pilih Pengawas" style="width: 100%;">
-                                
                             </select>
                         </div>
-
                         <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
                     </form>
                 </div>

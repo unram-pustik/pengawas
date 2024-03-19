@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\UjianModel;
 use App\Models\fakultasModel;
 use App\Models\LimitModel;
-
+use App\Models\PengawasModel;
 
 class Ujian extends BaseController
 {
@@ -43,18 +43,26 @@ class Ujian extends BaseController
     public function detail_ujian($kode_ujian)
     {
         $ujianModel = new UjianModel();
-       
+        $limitModel = new LimitModel();
+        $pengawasModel = new PengawasModel();
         $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
         // dd($data_ujian);
         
-        $data_pengawas = $ujianModel->db->table('pengawas')->where('kode_ujian', $kode_ujian)->get()->getResult();
+        // $data_pengawas = $ujianModel->db->table('pengawas')->where('kode_ujian', $kode_ujian)->get()->getResult();
+        $data_pengawas = $pengawasModel->getPengawas();
+        dd($data_pengawas);
         $session = session();
         $role = $_SESSION['role'];
-        // dd($role);
+        $fakultas = $_SESSION['fakultas'];
+
+        
+        $data_limit = $limitModel->getDataLimit($kode_ujian, $fakultas);
+
+        // dd($data_limit);
         if ($role == 1) {
             return view('v_detail_ujian_admin', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
         } else {
-            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
+            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_limit' => $data_limit]);
         }
         
     }
