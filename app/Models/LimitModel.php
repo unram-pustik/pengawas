@@ -14,7 +14,8 @@ class LimitModel extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('limit');
-        $builder->select('ujian.kode_ujian,ujian.nama_ujian,fakultas.kode,fakultas.fakultas_nama,limit.limit');
+        $builder->select('limit.id, ujian.kode_ujian,ujian.nama_ujian,fakultas.kode,fakultas.fakultas_nama,limit.limit');
+        
         $builder->join('ujian', 'ujian.kode_ujian = limit.kode_ujian');
         $builder->join('fakultas', 'fakultas.kode = limit.kode_fak');
         if ($kode_ujian != null) {

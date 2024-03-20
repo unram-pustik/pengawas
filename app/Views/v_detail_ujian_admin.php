@@ -20,84 +20,89 @@
 </head>
 
 <body>
-    
-        <div class="container mt-5">
-            <div class="mt-6">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Daftar Pengawas</h3>
-                    </div>
-                    <div class="card-body">
-                        <form method="post" action="<?= base_url(); ?>form/tambah_pengawas">
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="kode">Kode Ujian : </label>
-                                        <input type="text" class="form-control" id="kode" name="kode_ujian"
-                                            value="<?= $data_ujian['kode_ujian']; ?>" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nama">Nama Ujian : </label>
-                                        <input type="text" class="form-control" id="nama" name="nama_ujian"
-                                            value="<?= $data_ujian['nama_ujian']; ?>" readonly>
-                                    </div>
+    <div class="container mt-5">
+        <div class="mt-6">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Daftar Pengawas</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="<?= base_url(); ?>form/tambah_pengawas">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="kode">Kode Ujian : </label>
+                                    <input type="text" class="form-control" id="kode" name="kode_ujian"
+                                        value="<?= $data_ujian['kode_ujian']; ?>" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
-                                    <select class="select2bs4 select2" id="select_staff" name="pengawas[]"
-                                        multiple="multiple" data-placeholder="Pilih Pengawas"
-                                        style="width: 100%;"></select>
+                                    <label for="nama">Nama Ujian : </label>
+                                    <input type="text" class="form-control" id="nama" name="nama_ujian"
+                                        value="<?= $data_ujian['nama_ujian']; ?>" readonly>
                                 </div>
                             </div>
-                            <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
-                        </form>
-                    </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
+                                <select class="select2bs4 select2" id="select_staff" name="pengawas[]"
+                                    multiple="multiple" data-placeholder="Pilih Pengawas" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                        <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col">
-                    <table class="table table-bordered" id="pengawas-list">
-                        <thead>
-                            <tr>
-                                <th colspan="6" class="text-center">Daftar Pengawas Ujian</th>
-                            </tr>
-                            <tr>
-                                <th>Nama Ujian</th>
-                                <th>NIP</th>
-                                <th>Nama</th>
-                                <th>Jabatan</th>
-                                <th>Unit</th>
-                                <th>#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($data_pengawas as $data) : ?>
-                            <tr>
-                                <td><?= $data->kode_ujian ?></td>
-                                <td><?= $data->nip ?></td>
-                                <td><?= $data->nama ?></td>
-                                <td><?= $data->unit_kerja ?></td>
-                                <td><?= $data->kode_fak ?></td>
-                                <td><a href="<?= base_url('form/hapus_pengawas/') . $data->kode_pengawas ?>"
-                                        class="btn-hapus-pengawas" data-kode_pengawas="<?= $data->kode_pengawas ?>"><i
-                                            class="fas fa-trash"></i></a></td>
-                            </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="container mt-5">
+        <div class="row">
+            <form action="<?php echo site_url('pengawas/export_pengawas'); ?>" method="post">
+                <button type="success">Export Excel</button>
+            </form>
+            <div class="col">
+                <table class="table table-bordered" id="pengawas-list">
+                    <thead>
+                        <tr>
+                            <th colspan="6" class="text-center">Daftar Pengawas Ujian</th>
+                        </tr>
+                        <tr>
+                            <th>Nama Ujian</th>
+                            <th>NIP</th>
+                            <th>Nama</th>
+                            <th>Jabatan</th>
+                            <th>Unit</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 1; 
+                        foreach ($data_pengawas as $data) : ?>
+                        <tr>
+                            <td><?php echo $i++;?></td>
+                            <td><?= $data['nama_ujian'] ?? '' ?></td>
+                            <td><?= $data['nip'] ?? '' ?></td>
+                            <td><?= $data['nama'] ?? '' ?></td>
+                            <td><?= $data['unit_kerja'] ?? '' ?></td>
+                            <td><?= $data['status'] ?? '' ?></td>
+                            <td><a href="<?= base_url('form/hapus_pengawas/') . $data['kode_pengawas'] ?>"
+                                class="btn-hapus-pengawas" data-kode_pengawas="<?=  $data['kode_pengawas'] ?>"><i
+                                    class="fas fa-trash"></i></a></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    
-    
-    
+    </div>
+
+
+
     <footer>
-    <?php echo view('layout/v_footer'); ?>
-</footer>
+        <?php echo view('layout/v_footer'); ?>
+    </footer>
 
 
 
@@ -236,4 +241,5 @@
 
 
 </body>
+
 </html>

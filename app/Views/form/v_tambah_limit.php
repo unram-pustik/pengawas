@@ -3,15 +3,7 @@
 
 <head>
     <?php echo view('layout/v_head'); ?>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/fontawesome-free/css/all.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    
     <!-- BS Stepper -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/bs-stepper/css/bs-stepper.min.css">
     <!-- Theme style -->
@@ -83,10 +75,14 @@
                         <td><?= $data['nama_ujian']?> </td>
                         <td><?= $data['fakultas_nama']?></td>
                         <td><?= $data['limit'] ?></td>
-
+                        <td>
+                            <a href="#" class="btn btn-success btn-sm edit-limit" data-id="<?=  $data['id'] ?>" data-toggle="modal" data-target="#editLimit">Edit</a>
+                            
+                            <a href="<?= base_url(); ?>form/hapus_limit/<?= $data['id'] ?>" onclick="return confirm('Apakah anda ingin menghapus data ini?')" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
                     </tr>
                     <?php endforeach ?>
-
+                   
                 </tbody>
             </table>
         </div>
@@ -118,5 +114,68 @@
 
 <?php echo view('layout/v_footer'); ?>
 
+    <!-- Modal -->
+    <div class="modal fade" id="editLimit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Kuota Pengawas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" name="id" id="editId">
+                        <div class="form-group">
+                            <label for="editLimitInput">Jumlah Kuota Pengawas</label>
+                            <input type="number" name="limit" id="editLimitInput" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#editLimit').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+
+            var modal = $(this);
+            modal.find('.modal-title').text('Edit Kuota Pengawas ' + id);
+            modal.find('.modal-body #editId').val(id);
+
+            $.ajax({
+                url: '<?= base_url() ?>form/get_limit/' + id,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var limit = data.kuota;
+                    modal.find('.modal-body #editLimitInput').val(limit);
+                }
+            })
+        });
+
+        $('#saveEditBtn').on('click', function() {
+            var id = $('#editLimit #editId').val();
+            var limit = $('#editLimit #editLimitInput').val();
+            $.ajax({
+                url: '<?= base_url() ?>form/edit_limit/' + id,
+                method: 'POST',
+                data: {
+                    limit: limit
+                },
+                success: function() {
+                    $('#editLimit').modal('hide');
+                    location.reload();
+                }
+            });
+        });
+    </script>
 
 </html>

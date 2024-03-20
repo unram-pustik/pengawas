@@ -5,6 +5,9 @@ namespace App\Controllers;
 use App\Models\UjianModel;
 use App\Models\PengawasModel;
 use App\Models\PegawaiModel;
+use App\Models\PjlModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\Pager\PagerRenderer;
@@ -47,13 +50,32 @@ class Pengawas extends Controller
     {
         // Mendapatkan request dari nama 
         $nama = $this->request->getGet('nama');
-        // dd($nama);
+        $fakultas = $this->request->getGet('fakultas');
+       
         // Mengambil data pegawai berdasarkan nama
         $pegawaiModel = new PegawaiModel();
-        $dataPegawai = $pegawaiModel->like('nama', '%'.$nama.'%')->findAll();
+        $dataPegawai = $pegawaiModel->like('nama', '%'.$nama.'%')
+                                     ->where('kode_fakultas', $fakultas)
+                                     ->findAll();
         // dd($dataPegawai);
         // Mengembalikan data pegawai dalam format json
         return json_encode($dataPegawai);
+    }
+
+    public function get_Pjl()
+    {
+        // Mendapatkan request dari nama 
+        $nama = $this->request->getGet('nama');
+        $fakultas = $this->request->getGet('fakultas');
+     
+        // Mengambil data pegawai berdasarkan nama
+        $pjlModel = new PjlModel();
+        $dataPjl = $pjlModel->like('nama', '%'.$nama.'%')
+                                     ->where('kode_fakultas', $fakultas)
+                                     ->findAll();
+        dd($dataPjl);
+        // Mengembalikan data pegawai dalam format json
+        return json_encode($dataPjl);
     }
 
 
@@ -88,6 +110,44 @@ class Pengawas extends Controller
         // return (empty($data)) ? : array() ; $data;
     }
 
+    
+    public function export_pengawas()
+    {
+        $pengawasModel = new PengawasModel();
+        $data_pengawas = $pengawasModel->getPengawas();
+        $spreadsheet = new Spreadsheet();
+
+        $spreadsheet-> setActiveSheetIndex(0)->setCellValue('A1', 'Nama Ujian')
+                                            ->setCellValue('B1', 'Nip')
+                                            ->setCellValue('C1', 'Nama')
+                                            ->setCellValue('D1','Gol')
+                                            ->setCellValue('E1','Status')
+                                            ->setCellValue('F1','nit Kerja')
+                                            ->setCellValue('G1','Npwp');
+        $column = 2;
+
+        foreach ($data_pengawas as $data) {
+            $spreadsheet-> setActiveSheetIndex(0)->setCellValue('A' . $column, $data['nama_ujian'])
+                                                ->setCellValue('B' . $column, $data['nip'])
+                                                ->setCellValue('C' . $column, $data['nama'])
+                                                ->setCellValue('D' . $column, $data['gol'])
+                                                ->setCellValue('E' . $column, $data['status'])
+                                                ->setCellValue('F' . $column, $data['unit_kerja'])
+                                                ->setCellValue('G' . $column, $data['npwp']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $filename = date('Y-m-d'). '-Data-Pengawas';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+        // $writer->save($filename);
+        // return view('export/v_export_pengawas', ['pengawas' => $data_pengawas]);
+    }
+
+
 
     public function show_pengawas()
     {
@@ -119,6 +179,7 @@ class Pengawas extends Controller
         
     }
 
+    
     
     
 

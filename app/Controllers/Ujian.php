@@ -6,6 +6,7 @@ use App\Models\UjianModel;
 use App\Models\fakultasModel;
 use App\Models\LimitModel;
 use App\Models\PengawasModel;
+use App\Models\PjlModel;
 
 class Ujian extends BaseController
 {
@@ -26,7 +27,6 @@ class Ujian extends BaseController
             'tgl_akhir_ujian'  => date('Y-m-d'),
             // 'tgl_selesai' => $this->request->getPost('tgl_selesai'),
         ];
-        // dd($data);
         $ujianModel->insert($data);
     
         return redirect()->to(base_url('/ujian'));
@@ -45,24 +45,23 @@ class Ujian extends BaseController
         $ujianModel = new UjianModel();
         $limitModel = new LimitModel();
         $pengawasModel = new PengawasModel();
+        $pjlModel   = new PjlModel();
         $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
-        // dd($data_ujian);
-        
-        // $data_pengawas = $ujianModel->db->table('pengawas')->where('kode_ujian', $kode_ujian)->get()->getResult();
+       
         $data_pengawas = $pengawasModel->getPengawas();
-        dd($data_pengawas);
+
+        $data_pjl = $pjlModel->getpjl();
+      
         $session = session();
         $role = $_SESSION['role'];
         $fakultas = $_SESSION['fakultas'];
-
         
         $data_limit = $limitModel->getDataLimit($kode_ujian, $fakultas);
 
-        // dd($data_limit);
         if ($role == 1) {
-            return view('v_detail_ujian_admin', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas]);
+            return view('v_detail_ujian_admin', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_pjl'=>$data_pjl, 'data_limit' => $data_limit]);
         } else {
-            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_limit' => $data_limit]);
+            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_limit' => $data_limit, 'data_pjl'=>$data_pjl,]);
         }
         
     }
@@ -78,10 +77,13 @@ class Ujian extends BaseController
         $data_limit = $limitModel->getDataLimit();
 
         $data = [
-            'kode' => $this->request->getPost('kode'),
+            'kode'          => $this->request->getPost('kode'),
             'fakultas_nama' => $this->request->getPost('fakultas_nama'),
+            'data_limit'    => $data_limit, 
+            'data_ujian'    => $data_ujian, 
+            'data_fakultas'=>$data_fakultas,
         ];
-        return view('form\v_tambah_limit', ['data' => $data, 'data_limit' => $data_limit, 'data_ujian' => $data_ujian, 'data_fakultas'=>$data_fakultas]);
+        return view('form\v_tambah_limit', $data);
     }
 
     public function show_limit()
