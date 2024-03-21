@@ -117,25 +117,29 @@ class Pengawas extends Controller
         $data_pengawas = $pengawasModel->getPengawas();
         $spreadsheet = new Spreadsheet();
 
-        $spreadsheet-> setActiveSheetIndex(0)->setCellValue('A1', 'Nama Ujian')
-                                            ->setCellValue('B1', 'Nip')
-                                            ->setCellValue('C1', 'Nama')
-                                            ->setCellValue('D1','Gol')
-                                            ->setCellValue('E1','Status')
-                                            ->setCellValue('F1','nit Kerja')
-                                            ->setCellValue('G1','Npwp');
-        $column = 2;
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama Ujian');
+        $sheet->setCellValue('C1', 'Nip');
+        $sheet->setCellValue('D1','Nama');
+        $sheet->setCellValue('E1','Gol');
+        $sheet->setCellValue('F1','Status');
+        $sheet->setCellValue('G1','Unit Kerja');
+        $sheet->setCellValue('H1', 'Npwp');
 
-        foreach ($data_pengawas as $data) {
-            $spreadsheet-> setActiveSheetIndex(0)->setCellValue('A' . $column, $data['nama_ujian'])
-                                                ->setCellValue('B' . $column, $data['nip'])
-                                                ->setCellValue('C' . $column, $data['nama'])
-                                                ->setCellValue('D' . $column, $data['gol'])
-                                                ->setCellValue('E' . $column, $data['status'])
-                                                ->setCellValue('F' . $column, $data['unit_kerja'])
-                                                ->setCellValue('G' . $column, $data['npwp']);
+        $column = 2;
+        foreach ($data_pengawas as $data => $value) {
+            $sheet->setCellValue('A' . $column, ($column-1));
+            $sheet->setCellValue('B' . $column, $value['nama_ujian']);
+            $sheet->setCellValue('C' . $column, $value['nip']);
+            $sheet->setCellValue('D' . $column, $value['nama']);
+            $sheet->setCellValue('E' . $column, $value['gol']);
+            $sheet->setCellValue('F' . $column, $value['status']);
+            $sheet->setCellValue('G' . $column, $value['unit_kerja']);
+            $sheet->setCellValue('H' . $column, $value['npwp']);
             $column++;
         }
+
         $writer = new Xlsx($spreadsheet);
         $filename = date('Y-m-d'). '-Data-Pengawas';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -143,8 +147,7 @@ class Pengawas extends Controller
         header('Cache-Control: max-age=0');
         
         $writer->save('php://output');
-        // $writer->save($filename);
-        // return view('export/v_export_pengawas', ['pengawas' => $data_pengawas]);
+        exit();
     }
 
 
