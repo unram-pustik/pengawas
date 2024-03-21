@@ -150,6 +150,45 @@ class Pengawas extends Controller
         exit();
     }
 
+    public function export_pjl()
+    {
+        $pjlModel = new PjlModel();
+        $data_pjl = $pjlModel->getpjl();
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama Ujian');
+        $sheet->setCellValue('C1', 'Nip');
+        $sheet->setCellValue('D1','Nama');
+        $sheet->setCellValue('E1','Gol');
+        $sheet->setCellValue('F1','Status');
+        $sheet->setCellValue('G1','Unit Kerja');
+        $sheet->setCellValue('H1', 'Npwp');
+
+        $column = 2;
+        foreach ($data_pjl as $data => $value) {
+            $sheet->setCellValue('A' . $column, ($column-1));
+            $sheet->setCellValue('B' . $column, $value['nama_ujian']);
+            $sheet->setCellValue('C' . $column, $value['nip']);
+            $sheet->setCellValue('D' . $column, $value['nama']);
+            $sheet->setCellValue('E' . $column, $value['gol']);
+            $sheet->setCellValue('F' . $column, $value['status']);
+            $sheet->setCellValue('G' . $column, $value['unit_kerja']);
+            $sheet->setCellValue('H' . $column, $value['npwp']);
+            $column++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = date('Y-m-d'). '-Data-PJL-WPJL';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename=' . $filename . '.xlsx');
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+        exit();
+    }
+
 
 
     public function show_pengawas()

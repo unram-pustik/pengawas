@@ -1,19 +1,13 @@
 <html lang="en">
 <?php echo view('layout/v_nav'); ?>
-
 <head>
-    <?php echo view('layout/v_head'); ?>
-    
-    <!-- BS Stepper -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/bs-stepper/css/bs-stepper.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/dist/css/adminlte.min.css">
+<?php echo view('layout/v_head'); ?>
+    <title>List Ujian</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
 <body>
-    <div class="container mt-5">
+<div class="container mt-5">
         <div class="mt-3">
             <div class="card card-success">
                 <div class="card-header">
@@ -28,7 +22,6 @@
                                 <?php foreach($data_ujian as $data): ?>
                                 <option value="<?= $data['kode_ujian'] ?>"><?= $data['nama_ujian'] ?></option>
                                 <?php endforeach; ?>
-
                             </select>
                         </div>
                         <div class="form-group">
@@ -47,14 +40,12 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <hr>
 
     <div class="container mt-5">
         <div class="mt-3">
@@ -68,8 +59,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    
+                <?php
+                    $i = 1; 
                     foreach ($data_limit as $data) : ?>
                     <tr>
                         <td><?= $data['nama_ujian']?> </td>
@@ -82,40 +73,27 @@
                         </td>
                     </tr>
                     <?php endforeach ?>
-                   
                 </tbody>
             </table>
         </div>
     </div>
-
-   
-    <!-- JQuery -->
-    <script src="<?= base_url() ?>template/plugins/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="<?= base_url() ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="<?= base_url() ?>dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url() ?>dist/js/demo.js"></script>
-
     <script>
-    $(document).ready(function() {
-        $('limit-list').DataTable();
-    });
 
-    $(function() {
-        bsCustomFileInput.init();
+    $(document).ready(function() {
+        $('#limit-list').DataTable();
     });
     </script>
 </body>
 
-<?php echo view('layout/v_footer'); ?>
+<footer>
+    <?php echo view('layout/v_footer'); ?>
+</footer>
 
-    <!-- Modal -->
-    <div class="modal fade" id="editLimit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="editLimit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,6 +154,11 @@
                 }
             });
         });
+
+         $(document).ready(function() {
+        $('ujian-list').DataTable();
+    });
     </script>
+
 
 </html>

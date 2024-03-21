@@ -94,6 +94,62 @@ class Form extends BaseController
         
     }
 
+    public function tambah_pengawas_byadmin()
+    {
+        $pengawasModel = new PengawasModel();
+        $pjlModel = new PjlModel();
+        $limitModel = new LimitModel();
+        $data['pengawas'] = $_POST['pengawas'];
+        $kode_ujian = $_POST['kode_ujian'];
+
+        //cek limit
+        $session = session();
+        $role = $_SESSION['role'];
+        $fakultas = $_SESSION['fakultas'];
+
+        foreach ($_POST['pengawas'] as $pngwas) {
+             var_dump($pngwas);
+            $pengawas_decode = json_decode($pngwas, true);
+            
+            $kode_pengawas = $pengawas_decode["id"];
+
+            $data_input = [
+                'nip'   => $kode_pengawas,
+                'kode_ujian' => $kode_ujian,
+            ];
+            
+            $cek_data = $pengawasModel->where('nip', $kode_pengawas)->first();
+            if($cek_data){
+                // jika sudah ada, maka skip insert data
+                continue;
+            }
+            $pengawasModel->insert($data_input);
+
+
+            foreach ($_POST['pjl'] as $pjl) {
+                
+               $pjl_decode = json_decode($pjl, true);
+               
+               $kode_pjl = $pjl_decode["id"];
+   
+               $data_input = [
+                   'nip'   => $kode_pjl,
+                   'kode_ujian' => $kode_ujian,
+               ];
+               
+               $cek_data = $pjlModel->where('nip', $kode_pjl)->first();
+               if($cek_data){
+                   // jika sudah ada, maka skip insert data
+                   continue;
+               }
+               $pjlModel->insert($data_input);
+            }
+
+        }
+        return redirect()->to('ujian/detail_ujian/'.$_POST['kode_ujian']);
+        
+    }
+
     public function tambah_ujian()
     {
         $ujianModel = new UjianModel();
@@ -162,19 +218,20 @@ class Form extends BaseController
     }
 
     
-    public function hapus_limit()
+    public function hapus_limit($id)
     {
         $limitModel = new LimitModel();
-        $id = $this->request->getPost('id');
 
-        $hapus = $limitModel->delete($id);
+        $hapus = $limitModel->where('id', $id)->delete();
+        // dd($hapus);
         
         if($hapus)
         {
-            return redirect()->to('ujian/limit/'.$this->request->getPost('kode_ujian'))->with('sukses', 'Limit berhasil dihapus');
+            return redirect()->back()->with('sukses', 'Limit berhasil dihapus');
         }
-    }
 
+    }
+    
     public function show($id)
     {
         //
