@@ -49,19 +49,22 @@ class Ujian extends BaseController
         $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
        
         $data_pengawas = $pengawasModel->getPengawas();
-
+        
         $data_pjl = $pjlModel->getpjl();
       
         $session = session();
         $role = $_SESSION['role'];
         $fakultas = $_SESSION['fakultas'];
+
+        $data_pengawas_op = $pengawasModel->getPengawasByFakultas($fakultas);
+        $data_pjl_op = $pjlModel->getpjlByFakultas($fakultas);
         
         $data_limit = $limitModel->getDataLimit($kode_ujian, $fakultas);
 
         if ($role == 1) {
             return view('v_detail_ujian_admin', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_pjl'=>$data_pjl, 'data_limit' => $data_limit]);
         } else {
-            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_limit' => $data_limit, 'data_pjl'=>$data_pjl,]);
+            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas_op, 'data_limit' => $data_limit, 'data_pjl'=>$data_pjl_op,]);
         }
         
     }
