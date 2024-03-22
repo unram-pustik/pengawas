@@ -54,7 +54,9 @@ class Form extends BaseController
                 'kode_ujian' => $kode_ujian,
             ];
             
-            $cek_data = $pengawasModel->where('nip', $kode_pengawas)->first();
+            $cek_data = $pengawasModel->where('nip', $kode_pengawas)
+                                      ->where('kode_ujian', $kode_ujian)
+                                      ->first();
             if($cek_data){
                 // jika sudah ada, maka skip insert data
                 continue;
@@ -73,7 +75,9 @@ class Form extends BaseController
                    'kode_ujian' => $kode_ujian,
                ];
                
-               $cek_data = $pjlModel->where('nip', $kode_pjl)->first();
+               $cek_data = $pjlModel->where('nip', $kode_pjl)
+                                    ->where('kode_ujian', $kode_ujian)
+                                    ->first();
                if($cek_data){
                    // jika sudah ada, maka skip insert data
                    continue;
@@ -99,55 +103,82 @@ class Form extends BaseController
         $pengawasModel = new PengawasModel();
         $pjlModel = new PjlModel();
         $limitModel = new LimitModel();
-        $data['pengawas'] = $_POST['pengawas'];
         $kode_ujian = $_POST['kode_ujian'];
 
         //cek limit
         $session = session();
         $role = $_SESSION['role'];
         $fakultas = $_SESSION['fakultas'];
+// dd($_POST['pengawas']);
+        if(isset($_POST['pengawas']) && !empty($_POST['pengawas'])){
+            foreach ($_POST['pengawas'] as $pngwas) {
+             
+                $pengawas_decode = json_decode($pngwas, true);
+                
+                $kode_pengawas = $pengawas_decode["id"];
+    
+                $data_input = [
+                    'nip'   => $kode_pengawas,
+                    'kode_ujian' => $kode_ujian,
+                ];
 
-        foreach ($_POST['pengawas'] as $pngwas) {
-             var_dump($pngwas);
-            $pengawas_decode = json_decode($pngwas, true);
+                // cek jika pengawas, tidak boleh jika sudah menjadi PJL
+                $cek_pengawas_pjl = $pjlModel->where('nip', $kode_pengawas)
+                                            ->where('kode_ujian', $kode_ujian)
+                                            ->first();
+                                            
+                if($cek_pengawas_pjl){
+                    // jika sudah ada, maka skip insert data
+                    return redirect()->back()->with('error', 'Tidak bisa ditambahkan sbg Pengawas karena sudah terdaftar sebagai PJL');
+                }
+                
+                $cek_data = $pengawasModel->where('nip', $kode_pengawas)
+                                      ->where('kode_ujian', $kode_ujian)
+                                      ->first();
+                if($cek_data){
+                    // jika sudah ada, maka skip insert data
+                    continue;
+                }
+                $pengawasModel->insert($data_input);
+    
+            }
+
+        }
+
+        if(isset($_POST['pjl']) && !empty($_POST['pjl'])){
+        foreach ($_POST['pjl'] as $pjl) {
+                    
+            $pjl_decode = json_decode($pjl, true);
             
-            $kode_pengawas = $pengawas_decode["id"];
+            $kode_pjl = $pjl_decode["id"];
 
             $data_input = [
-                'nip'   => $kode_pengawas,
+                'nip'   => $kode_pjl,
                 'kode_ujian' => $kode_ujian,
             ];
-            
-            $cek_data = $pengawasModel->where('nip', $kode_pengawas)->first();
+            // cek pengawas; jika sudah didaftrakan maka tidak bolehnjadi PJL
+            $cek_pjl_pengawas = $pengawasModel->where('nip', $kode_pjl)
+                                      ->where('kode_ujian', $kode_ujian)
+                                      ->first();
+
+            if($cek_pjl_pengawas){
+            // jika sudah ada, maka skip insert data
+            return redirect()->back()->with('error', 'Tidak bisa ditambahkan sbg PJL karena sudah terdaftar sebagai Pengawas');;
+            }
+            // cek jika sudah pernah ditambahkan 
+            $cek_data = $pjlModel->where('nip', $kode_pjl)
+            ->where('kode_ujian', $kode_ujian)
+            ->first();
             if($cek_data){
                 // jika sudah ada, maka skip insert data
                 continue;
             }
-            $pengawasModel->insert($data_input);
-
-
-            foreach ($_POST['pjl'] as $pjl) {
-                
-               $pjl_decode = json_decode($pjl, true);
-               
-               $kode_pjl = $pjl_decode["id"];
-   
-               $data_input = [
-                   'nip'   => $kode_pjl,
-                   'kode_ujian' => $kode_ujian,
-               ];
-               
-               $cek_data = $pjlModel->where('nip', $kode_pjl)->first();
-               if($cek_data){
-                   // jika sudah ada, maka skip insert data
-                   continue;
-               }
-               $pjlModel->insert($data_input);
-            }
-
+            $pjlModel->insert($data_input);
+         }
         }
+
+
         return redirect()->to('ujian/detail_ujian/'.$_POST['kode_ujian']);
-        
     }
 
     public function tambah_ujian()
@@ -178,6 +209,18 @@ class Form extends BaseController
             return redirect()->back()->with('sukses', 'Data pengawas berhasil dihapus');
         }
     }
+    
+    public function hapus_pjl($kode_pjl)
+    {
+        $pjlModel = new PjlModel();
+        $hapus = $pjlModel->where('kode_pjl', $kode_pjl)->delete();
+
+        if($hapus)
+        {
+            return redirect()->back()->with('sukses', 'Data PJL berhasil dihapus');
+        }
+    }
+
     public function tambah_limit()
     {
         $limitModel = new LimitModel();
@@ -199,7 +242,7 @@ class Form extends BaseController
         $limitModel->insert($data);
         
         // return redirect()->back()->with('sukses', 'Limit waktu berhasil ditambahkan');
-     return redirect()->to('ujian/limit/'.$_POST['kode_ujian']);
+     return redirect()->to('Ujian/limit/'.$_POST['kode_ujian']);
     }
     
     public function edit_limit($id = '')

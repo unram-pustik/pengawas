@@ -67,9 +67,9 @@
                         <td><?= $data['fakultas_nama']?></td>
                         <td><?= $data['limit'] ?></td>
                         <td>
-                            <a href="#" class="btn btn-success btn-sm edit-limit" data-id="<?=  $data['id'] ?>" data-toggle="modal" data-target="#editLimit">Edit</a>
+                            <a href="#" class="btn btn-success btn-sm edit-limit" data-id="<?=  $data['id'] ?>" data-toggle="modal" data-target="#editLimit">Ubah</a>
                             
-                            <a href="<?= base_url(); ?>form/hapus_limit/<?= $data['id'] ?>" onclick="return confirm('Apakah anda ingin menghapus data ini?')" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="<?= base_url(); ?>form/hapus_limit/<?= $data['id'] ?>" onclick="return confirm('Apakah anda ingin menghapus data ini?')" class="btn btn-danger btn-sm">Hapus</a>
                         </td>
                     </tr>
                     <?php endforeach ?>

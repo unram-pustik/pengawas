@@ -24,6 +24,14 @@
 
 <body>
     <div class="container mt-6">
+    <?php if(session()->get('error')): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= session()->get('error') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <?php endif; ?>
         <div class="mt-6">
             <div class=" col-sm-12">
             </div>
@@ -49,15 +57,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-form-label" for="inputSuccess">Pilih Pengawas</label>
+                                <label class="col-form-label" for="inputSuccess">Pilih Pengawas (Optional)</label>
                                 <select class="select2bs4 select2" id="select_staff" name="pengawas[]"
-                                    multiple="multiple" data-placeholder="Pilih Pengawas" style="width: 100%;"></select>
+                                    multiple="multiple" data-placeholder="Pilih Pengawas" style="width: 100%;">
+                                </select>
+                                <small class="text-muted">Biarkan kosong jika tidak diperlukan</small>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-form-label" for="inputSuccess">Pilih PJL dan WPJL</label>
+                                <label class="col-form-label" for="inputSuccess">Pilih PJL dan WPJL (Optional)</label>
                                 <select class="select2bs4 select2" id="pjl-select" name="pjl[]"
-                                    multiple="multiple" data-placeholder="Pilih PJL dan WPJL" style="width: 100%;"></select>
+                                    multiple="multiple" data-placeholder="Pilih PJL dan WPJL" style="width: 100%;">
+                                </select>
+                                <small class="text-muted">Biarkan kosong jika tidak diperlukan</small>
                             </div>
                         </div>
                         <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
@@ -104,7 +116,7 @@
                         <td><?= $data['status'] ?? '' ?></td>
 
                         <td><a href="<?= base_url('form/hapus_pengawas/') . $data['kode_pengawas'] ?>"
-                                class="btn-hapus-pengawas" data-kode_pengawas="<?=  $data['kode_pengawas'] ?>"><i
+                                class="btn-hapus-pengawas" data-kode_pengawas="<?=  $data['kode_pengawas'] ?>" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i
                                     class="fas fa-trash"></i></a></td>
                     </tr>
                     <?php endforeach ?>
@@ -149,7 +161,7 @@
                         <td><?= $data['status'] ?? '' ?></td>
 
                         <td><a href="<?= base_url('form/hapus_pjl/') . $data['kode_pjl'] ?>"
-                                class="btn-hapus-pjl" data-kode_pjl="<?=  $data['kode_pjl'] ?>"><i
+                                class="btn-hapus-pjl" data-kode_pjl="<?=  $data['kode_pjl'] ?>"onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i
                                     class="fas fa-trash"></i></a></td>
                     </tr>
                     <?php endforeach ?>
@@ -219,8 +231,7 @@ $(document).ready(function() {
                 PSInfo = '(' + item.nama_PS + ')';
             }
 
-            var unitInfo = id["unit"] ? id["unit"] : "-";
-
+            var unitInfo = id["unit_kerja"] ? id["unit_kerja"] : "-";
             return '<strong>' + item.text + '</strong><br/>' +
                 '<small>' + id["id"] + '</small> <br/>' +
                 '<small><b>Jurusan: ' + PSInfo + ' / ' + 'Unit: ' + unitInfo + '<b/></small>';
@@ -233,11 +244,12 @@ $(document).ready(function() {
             var indexed = $('#select_staff').val().indexOf(item.id);
             var selectedNumber = indexed + 1;
 
-            return selectedNumber + ' | ' + data_id["id"] + ' | ' + data_id["text"];
-
+            return selectedNumber + ' | ' + data_id["id"] + ' | ' + data_id["text"] + ' | ' + data_id[
+                "status"];
         },
         ajax: {
-            url: '<?= base_url() ?>pengawas/get_api',
+            url: '<?= base_url() ?>pengawas/get_Pegawai_admin',
+        
             type: 'GET',
 
             dataType: 'json',
@@ -254,14 +266,16 @@ $(document).ready(function() {
                     results.push({
                         id: JSON.stringify({
                             "text": item.nama,
-                            "id": item.kode,
-                            "nama_PS": item.nama_PS,
-                            "unit": item.unit,
-                            "kode_fak": item.kode_fak,
+                            "id": item.nip,
+                            "gol": item.gol,
+                            "status": item.status,
+                            "unit_kerja": item.unit_kerja,
+                            "kode_fakultas": item.kode_fakultas,
                         }),
+                        //data yang mau dipakai
                         text: item.nama,
-                        nama_PS: item.nama_PS,
-                        unit: item.unit,
+                        status: item.status,
+                        unit_kerja: item.unit_kerja,
                         kode_fak: item.kode_fak,
                     });
                 });
@@ -293,12 +307,13 @@ $(document).ready(function() {
                 PSInfo = '(' + item.nama_PS + ')';
             }
 
-            var unitInfo = id["unit"] ? id["unit"] : "-";
+            var unitInfo = id["unit_kerja"] ? id["unit_kerja"] : "-";
 
             return '<strong>' + item.text + '</strong><br/>' +
                 '<small>' + id["id"] + '</small> <br/>' +
-                '<small><b>Jurusan: ' + PSInfo + ' / ' + 'Unit: ' + unitInfo + '<b/></small>';
+                '<small><b>Unit: ' + unitInfo + '<b/></small>';
         },
+
 
         templateSelection: function(item) {
             var data_id = JSON.parse(item.id);
@@ -307,11 +322,12 @@ $(document).ready(function() {
             var indexed = $('#pjl-select').val().indexOf(item.id);
             var selectedNumber = indexed + 1;
 
-            return selectedNumber + ' | ' + data_id["id"] + ' | ' + data_id["text"];
+            return selectedNumber + ' | ' + data_id["id"] + ' | ' + data_id["text"] + ' | ' + data_id[
+                "status"];
 
         },
         ajax: {
-            url: '<?= base_url() ?>pengawas/get_api',
+            url: '<?= base_url() ?>pengawas/get_Pegawai_admin',
             type: 'GET',
 
             dataType: 'json',
@@ -328,14 +344,16 @@ $(document).ready(function() {
                     results.push({
                         id: JSON.stringify({
                             "text": item.nama,
-                            "id": item.kode,
-                            "nama_PS": item.nama_PS,
-                            "unit": item.unit,
-                            "kode_fak": item.kode_fak,
+                            "id": item.nip,
+                            "gol": item.gol,
+                            "status": item.status,
+                            "unit_kerja": item.unit_kerja,
+                            "kode_fakultas": item.kode_fakultas,
                         }),
+                        //data yang mau dipakai
                         text: item.nama,
-                        nama_PS: item.nama_PS,
-                        unit: item.unit,
+                        status: item.status,
+                        unit_kerja: item.unit_kerja,
                         kode_fak: item.kode_fak,
                     });
                 });

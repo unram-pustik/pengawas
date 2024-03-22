@@ -15,8 +15,8 @@
                         <th>Kode Ujian</th>
                         <th>Nama Ujian</th>
                         <th>Tahun Ujian</th>
-                        <th>Tanggal Mulai Ujian</th>
-                        <th>Tanggal Selesai Ujian</th>
+                        <!-- <th>Tanggal Mulai Ujian</th>
+                        <th>Tanggal Selesai Ujian</th> -->
                         <th>#</th>
                     </tr>
                 </thead>
@@ -33,17 +33,13 @@
                         <td>
                             <?php echo $du['tahun_ujian']; ?>
                         </td>
-                        <td>
+                        <!-- <td>
                             <?php echo $du['tgl_mulai_ujian']; ?>
                         </td>
                         <td>
                             <?php echo $du['tgl_akhir_ujian']; ?>
-                        </td>
-                        <td> <a href="<?= site_url('ujian/detail_ujian/'. $du['kode_ujian']) ?>" class="btn btn-success">Detail</a>
-                        
-                        <?php if(session()->get('role') == '1'): ?>
-                        <a href="<?= site_url('ujian/limit/'. $du['kode_ujian']) ?>" class="btn btn-warning">Tambah Limit</a>
-                        <?php endif; ?>
+                        </td> -->
+                        <td> <a href="<?= base_url('ujian/detail_ujian/'. $du['kode_ujian']) ?>" class="btn btn-success">Detail</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

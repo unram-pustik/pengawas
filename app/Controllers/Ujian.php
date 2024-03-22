@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UjianModel;
-use App\Models\fakultasModel;
+use App\Models\FakultasModel;
 use App\Models\LimitModel;
 use App\Models\PengawasModel;
 use App\Models\PjlModel;
@@ -12,7 +12,9 @@ class Ujian extends BaseController
 {
     public function index()
     {
-        return view('form/v_tambah_ujian');
+        $ujianModel = new UjianModel();
+        $data_ujian = $ujianModel->findAll();
+        return view('form/v_tambah_ujian', ['data_ujian' => $data_ujian]);
     }
 
     public function tambah_ujian()
@@ -29,7 +31,7 @@ class Ujian extends BaseController
         ];
         $ujianModel->insert($data);
     
-        return redirect()->to(base_url('/ujian'));
+        return view('form/v_tambah_ujian');
     }
 
     public function list_ujian()
@@ -48,9 +50,9 @@ class Ujian extends BaseController
         $pjlModel   = new PjlModel();
         $data_ujian = $ujianModel->where('kode_ujian', $kode_ujian)->first();
        
-        $data_pengawas = $pengawasModel->getPengawas();
+        $data_pengawas = $pengawasModel->getPengawas(false, $kode_ujian);
         
-        $data_pjl = $pjlModel->getpjl();
+        $data_pjl = $pjlModel->getpjl(false, $kode_ujian);
       
         $session = session();
         $role = $_SESSION['role'];
@@ -64,7 +66,7 @@ class Ujian extends BaseController
         if ($role == 1) {
             return view('v_detail_ujian_admin', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas, 'data_pjl'=>$data_pjl, 'data_limit' => $data_limit]);
         } else {
-            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas_op, 'data_limit' => $data_limit, 'data_pjl'=>$data_pjl_op,]);
+            return view('v_detail_ujian', ['data_ujian' => $data_ujian, 'data_pengawas'=>$data_pengawas_op, 'data_limit' => $data_limit, 'data_pjl'=>$data_pjl_op]);
         }
         
     }
@@ -89,22 +91,31 @@ class Ujian extends BaseController
         return view('form\v_tambah_limit', $data);
     }
 
-    public function show_limit()
+    // public function show_limit()
+    // {
+    //     $fakultasModel = new FakultasModel();
+    //     $limitModel = new LimitModel();
+    //     $ujianModel = new UjianModel();
+    //     $data_ujian = $ujianModel->findAll();
+    //     $data_fakultas = $fakultasModel->findAll();
+    //     $data_limit = $limitModel->getDataLimit();
+    //     // dd($data_limit);
+
+    //     return view('form\V_tambah_limit', ['data_limit' => $data_limit, 'data_ujian' => $data_ujian, 'data_fakultas'=>$data_fakultas]);
+    // }
+
+    public function hapus($kode_ujian)
     {
-        $fakultasModel = new FakultasModel();
-        $limitModel = new LimitModel();
         $ujianModel = new UjianModel();
+        $ujianModel->delete($kode_ujian);
+        
+        $limitModel = new LimitModel();
+        $limitModel->where('kode_ujian', $kode_ujian)->delete(); //hapus semua data limit yang berhubungan dengan kode_ujian yang dihapus
         $data_ujian = $ujianModel->findAll();
-        $data_fakultas = $fakultasModel->findAll();
-        $data_limit = $limitModel->getDataLimit();
-        // dd($data_limit);
-
-        return view('form\v_tambah_limit', ['data_limit' => $data_limit, 'data_ujian' => $data_ujian, 'data_fakultas'=>$data_fakultas]);
-    }
-
-    public function edit($id)
-    {
-        //
+        if(empty($data_ujian)){
+            $data_ujian = [];
+        }
+        return view('form/v_tambah_ujian', ['data_ujian' => $data_ujian]);
     }
 
     public function update($id)

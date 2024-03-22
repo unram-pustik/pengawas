@@ -62,6 +62,23 @@ class Pengawas extends Controller
         return json_encode($dataPegawai);
     }
 
+    public function get_Pegawai_admin()
+    {
+        // Mendapatkan request dari nama 
+        $nama = $this->request->getGet('nama');
+        $fakultas = $this->request->getGet('fakultas');
+       
+        // Mengambil data pegawai berdasarkan nama
+        $pegawaiModel = new PegawaiModel();
+            $dataPegawai = $pegawaiModel->like('nama', '%'.$nama.'%')
+                                     ->findAll();
+        
+        // dd($dataPegawai);
+        // Mengembalikan data pegawai dalam format json
+        return json_encode($dataPegawai);
+    }
+
+
     public function get_Pjl()
     {
         // Mendapatkan request dari nama 

@@ -24,14 +24,14 @@
 
 <body>
     <div class="container mt-5">
-    <?php if(session()->get('error')): ?>
+        <?php if(session()->get('error')): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <?= session()->get('error') ?>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    <?php endif; ?>
+        <?php endif; ?>
         <div class="mt-6">
             <div class=" col-sm-12">
                 <div class="info-box bg-warning">
@@ -73,11 +73,11 @@
                                     multiple="multiple" data-placeholder="Pilih Pengawas" style="width: 100%;"></select>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="col-form-label" for="inputSuccess">Pilih PJL dan WPJL</label>
                                 <select class="select2bs4 select2" id="pjl_select" name="pjl[]"
                                     multiple="multiple" data-placeholder="Pilih PJL dan WPJL" style="width: 100%;"></select>
-                            </div>
+                            </div> -->
                         </div>
                         <button type="submit" value="submit" class="btn btn-success">Ajukan</button>
                     </form>
@@ -116,6 +116,7 @@
                         <td><?= $data['status'] ?? '' ?></td>
 
                         <td><a href="<?= base_url('form/hapus_pengawas/') . $data['kode_pengawas'] ?>"
+                                onclick="return confirm('Apakah anda ingin menghapus data ini?')"
                                 class="btn-hapus-pengawas" data-kode_pengawas="<?=  $data['kode_pengawas'] ?>"><i
                                     class="fas fa-trash"></i></a></td>
                     </tr>
@@ -125,12 +126,12 @@
             </table>
         </div>
     </div>
-<hr>
+    <hr>
     <!-- tabel pjl -->
     <div class="container mt-5">
         <div class="mt-3">
             <table class="table table-bordered" id="pjl-list">
-            <caption>Tabel Pengawas</caption>
+                <caption>Tabel Pengawas</caption>
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -154,9 +155,8 @@
                         <td><?= $data['unit_kerja'] ?? '' ?></td>
                         <td><?= $data['status'] ?? '' ?></td>
 
-                        <td><a href="<?= base_url('form/hapus_pjl/') . $data['kode_pjl'] ?>"
-                                class="btn-hapus-pjl" data-kode_pjl="<?=  $data['kode_pjl'] ?>"><i
-                                    class="fas fa-trash"></i></a></td>
+                        <td><a href="<?= base_url('form/hapus_pjl/') . $data['kode_pjl'] ?>" class="btn-hapus-pjl"
+                                data-kode_pjl="<?=  $data['kode_pjl'] ?>"><i class="fas fa-trash"></i></a></td>
                     </tr>
                     <?php endforeach ?>
 
@@ -190,11 +190,10 @@
 
     <!-- Page specific script -->
     <script>
-
     $(document).ready(function() {
         $('#pjl-list').DataTable();
         $('#pengawas-list').DataTable();
-      
+
     });
 
 
@@ -242,7 +241,8 @@
         },
         ajax: {
             url: function(params) {
-                return '<?= base_url() ?>pengawas/get_Pegawai?fakultas=' + '<?= session()->get('fakultas') ?>';
+                return '<?= base_url() ?>pengawas/get_Pegawai?fakultas=' +
+                    '<?= session()->get('fakultas') ?>';
             },
             type: 'GET',
 
@@ -321,7 +321,8 @@
         },
         ajax: {
             url: function(params) {
-                return '<?= base_url() ?>pengawas/get_Pegawai?fakultas=' + '<?= session()->get('fakultas') ?>';
+                return '<?= base_url() ?>pengawas/get_Pegawai?fakultas=' +
+                    '<?= session()->get('fakultas') ?>';
             },
             type: 'GET',
 
@@ -359,7 +360,6 @@
             cache: true
         },
     })
-
     </script>
 
 </body>

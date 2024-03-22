@@ -12,9 +12,9 @@ class PengawasModel extends Model
     protected $allowedFields = ['kode_ujian','nip'];
 
 
-    public function getPengawas($nip = false)
+    public function getPengawas($nip = false, $kode_ujian = false)
     {
-        if ($nip == false) {
+        if ($nip == false && $kode_ujian == false) {
             return $this->table('pengawas')
                         ->select('pengawas.*, ujian.nama_ujian, pegawai.nama, pegawai.nip, pegawai.status, pegawai.gol, pegawai.unit_kerja, pegawai.npwp')
                         ->join('ujian', 'ujian.kode_ujian = pengawas.kode_ujian')
@@ -22,12 +22,20 @@ class PengawasModel extends Model
                         ->findAll();
         }
  
-        return $this->table('pengawas')
+        $builder = $this->table('pengawas')
                     ->select('pengawas.*, ujian.nama_ujian, pegawai.nama, pegawai.nip, pegawai.status, pegawai.gol, pegawai.unit_kerja, pegawai.npwp')
-                    ->join('ujian', 'ujian.kode_ujian = pengawas.kode_ujian')
-                    ->join('pegawai', 'pegawai.nip = pengawas.nip')
-                    ->where('pengawas.nip', $nip)
-                    ->first();
+                    ->join('ujian', 'ujian.kode_ujian = pengawas.kode_ujian',)
+                    ->join('pegawai', 'pegawai.nip = pengawas.nip');
+
+        if ($nip) {
+            $builder = $builder->where('pengawas.nip', $nip);
+        }
+
+        if ($kode_ujian) {
+            $builder = $builder->where('pengawas.kode_ujian', $kode_ujian);
+        }
+        // dd($builder->findAll);
+        return $builder->findAll();
     }
 
     
