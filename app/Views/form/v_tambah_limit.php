@@ -1,12 +1,10 @@
 <html lang="en">
-<?php echo view('layout/v_nav'); ?>
-<head>
-<?php echo view('layout/v_head'); ?>
-    <title>List Ujian</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 
-<body>
+<?php echo view('layout/v_head'); ?>
+<?php echo view('layout/v_nav'); ?>
+    <title>Daftar Ujian</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <div class="container mt-5">
         <div class="mt-3">
             <div class="card card-success">

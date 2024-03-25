@@ -1,28 +1,13 @@
 <html lang="en">
 <?php helper('kode_helper');
  ?>
-
 <?php echo view('layout/v_nav'); ?>
-
-<head>
     <?php echo view('layout/v_head'); ?>
+    
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <link rel="stylesheet"
-        href="<?= base_url() ?>template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- BS Stepper -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/bs-stepper/css/bs-stepper.min.css">
-    <!-- dropzonejs -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/dropzone/min/dropzone.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
-
-<body>
+    
     <div class="container mt-5">
         <?php if(session()->get('error')): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -175,19 +160,6 @@
     <script src="<?= base_url() ?>template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
     <script src="<?= base_url() ?>template/plugins/select2/js/select2.full.min.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js">
-    </script>
-    <!-- Bootstrap Switch -->
-    <script src="<?= base_url() ?>template/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <!-- BS-Stepper -->
-    <script src="<?= base_url() ?>template/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="<?= base_url() ?>template/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url() ?>template/dist/js/demo.js"></script>
-
-
     <!-- Page specific script -->
     <script>
     $(document).ready(function() {
@@ -362,9 +334,4 @@
     })
     </script>
 
-</body>
-<footer>
     <?php echo view('layout/v_footer'); ?>
-</footer>
-
-</html>

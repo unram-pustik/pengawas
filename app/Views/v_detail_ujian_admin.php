@@ -3,26 +3,13 @@
  ?>
 
 <?php echo view('layout/v_nav'); ?>
+<?php echo view('layout/v_head'); ?>
 
-<head>
-    <?php echo view('layout/v_head'); ?>
-    <!-- Select2 -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <link rel="stylesheet"
-        href="<?= base_url() ?>template/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- BS Stepper -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/bs-stepper/css/bs-stepper.min.css">
-    <!-- dropzonejs -->
-    <link rel="stylesheet" href="<?= base_url() ?>template/plugins/dropzone/min/dropzone.min.css">
+<title>Detail Ujian</title>
+<!-- Select2 -->
+<link rel="stylesheet" href="<?= base_url() ?>template/plugins/select2/css/select2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-</head>
-
-<body>
     <div class="container mt-6">
     <?php if(session()->get('error')): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -171,35 +158,17 @@
         </div>
     </div>
 
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <!-- JQuery -->
-    <script src="<?= base_url() ?>template/plugins/jquery/jquery.min.js"></script>
+<!-- JQuery -->
+<script src="<?= base_url() ?>template/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="<?= base_url() ?>template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
     <script src="<?= base_url() ?>template/plugins/select2/js/select2.full.min.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="<?= base_url() ?>template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js">
-    </script>
-    <!-- Bootstrap Switch -->
-    <script src="<?= base_url() ?>template/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <!-- BS-Stepper -->
-    <script src="<?= base_url() ?>template/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="<?= base_url() ?>template/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url() ?>template/dist/js/demo.js"></script>
-
-
     <!-- Page specific script -->
     <script>
-
 $(document).ready(function() {
         $('#pjl-list').DataTable();
         $('#pengawas-list').DataTable();
@@ -219,7 +188,6 @@ $(document).ready(function() {
         },
         minimumInputLength: 2,
         maximumInputLength: 5, // tambahkan limit inputan
-        maximumSelectionLength: 15, // tambahkan limit pilihan
         templateResult: function(item) {
             if (item.loading)
                 return item.text;
@@ -367,9 +335,4 @@ $(document).ready(function() {
 
     </script>
 
-</body>
-<footer>
     <?php echo view('layout/v_footer'); ?>
-</footer>
-
-</html>
