@@ -64,26 +64,26 @@ class Form extends BaseController
             $pengawasModel->insert($data_input);
 
 
-            foreach ($_POST['pjl'] as $pjl) {
+            // foreach ($_POST['pjl'] as $pjl) {
                 
-               $pjl_decode = json_decode($pjl, true);
+            //    $pjl_decode = json_decode($pjl, true);
                
-               $kode_pjl = $pjl_decode["id"];
+            //    $kode_pjl = $pjl_decode["id"];
    
-               $data_input = [
-                   'nip'   => $kode_pjl,
-                   'kode_ujian' => $kode_ujian,
-               ];
+            //    $data_input = [
+            //        'nip'   => $kode_pjl,
+            //        'kode_ujian' => $kode_ujian,
+            //    ];
                
-               $cek_data = $pjlModel->where('nip', $kode_pjl)
-                                    ->where('kode_ujian', $kode_ujian)
-                                    ->first();
-               if($cek_data){
-                   // jika sudah ada, maka skip insert data
-                   continue;
-               }
-               $pjlModel->insert($data_input);
-            }
+            //    $cek_data = $pjlModel->where('nip', $kode_pjl)
+            //                         ->where('kode_ujian', $kode_ujian)
+            //                         ->first();
+            //    if($cek_data){
+            //        // jika sudah ada, maka skip insert data
+            //        continue;
+            //    }
+            //    $pjlModel->insert($data_input);
+            // }
 
             
             $data_pengawas = $pengawasModel->getPengawasByFakultas($fakultas);
